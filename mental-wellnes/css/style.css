@@ -26,7 +26,7 @@ h3 {
 ========================= */
 .navbar {
   background: #e6f4ea;
-  padding: 1rem 0;
+  padding: 0.5rem 0;
 }
 
 .nav-logo {
@@ -291,4 +291,54 @@ footer {
   padding: 1rem;
   text-align: center;
   font-size: 0.9rem;
+}
+
+
+/* ===============================
+   😊 Mood Tracker Styles (Compact Version)
+   =============================== */
+/* ===============================
+   😊 Mood Tracker Styles (Collapsible & Compact)
+   =============================== */
+
+/* Smaller buttons */
+.mood-btn {
+  transition: transform 0.2s ease, background 0.2s ease;
+  padding: 0.3rem 0.7rem;
+  border-radius: 10px;
+  background: #ffffffaa;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+}
+
+.mood-btn:hover {
+  transform: scale(1.15);
+  background: #e0f7f1;
+}
+
+/* ✨ NEW: Styles for collapsible section & smaller charts ✨ */
+
+/* This is the key to making the charts smaller */
+.chart-container {
+  max-height: 250px; /* Force the chart height to be smaller */
+  position: relative;
+}
+
+/* The wrapper is hidden by default */
+#mood-details-wrapper {
+  display: none;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+
+/* When visible, it fades in */
+#mood-details-wrapper.is-visible {
+  display: block;
+  opacity: 1;
+}
+
+/* ===============================
+   ✨ Wellness Tip Styles
+   =============================== */
+#wellness-tip {
+  transition: background-color 0.3s ease;
 }
