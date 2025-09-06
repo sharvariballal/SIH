@@ -84,14 +84,22 @@ h3 {
 }
 
 .btn {
-  background: #2563eb;
+  background-color: #059669; /* Soft green */
   color: white;
+  font-size: 16px;
+  font-weight: 600;
+  padding: 12px 28px;
   border: none;
-  padding: 0.8rem 1.5rem;
-  font-size: 1rem;
-  border-radius: 0.5rem;
+  border-radius: 50px; /* Makes it fully rounded */
   cursor: pointer;
-  transition: 0.3s;
+  transition: all 0.3s ease;
+}
+
+button:hover {
+  background-color: #a4e0eb; /* Darker green on hover */
+  transform: scale(1.05); /* Slight zoom effect */
+}
+
 }
 
 .btn:hover {
