@@ -303,11 +303,9 @@ footer {
 
 
 /* ===============================
-   😊 Mood Tracker Styles (Compact Version)
+   😊 Mood Tracker 
    =============================== */
-/* ===============================
-   😊 Mood Tracker Styles (Collapsible & Compact)
-   =============================== */
+
 
 /* Smaller buttons */
 .mood-btn {
@@ -429,7 +427,7 @@ body {
   grid-template-columns: 1fr 1fr; /* left + right */
   grid-template-rows: 1fr 1fr;    /* breathing + meditation */
   gap: 20px;
-  height: 80vh; /* adjustable */
+  height: 110vh; /* adjustable */
   margin-top: 30px;
   margin-bottom: 30px;
   margin-left: 30px;
@@ -462,4 +460,38 @@ body {
   margin-top: 0;
   font-size: 20px;
   color: #333;
+}
+.breathing {
+  text-align:center;
+}
+
+.breathing-circle {
+  width: 60px;
+  height: 60px;
+  margin: 20px auto;
+  border-radius: 50%;
+  background: radial-gradient(circle, #93c5fd, #3b82f6);
+  box-shadow: 0 0 20px rgba(59, 130, 246, 0.6);
+  transition: transform 4s ease-in-out;
+}
+
+#breathingText {
+  font-size: 18px;
+  margin: 10px 0;
+  color: #1e3a8a;
+  font-weight: 500;
+}
+
+#startBreathing {
+  padding: 10px 20px;
+  background: #3b82f6;
+  color: #fff;
+  border: none;
+  border-radius: 25px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+#startBreathing:hover {
+  background: #2563eb;
 }
