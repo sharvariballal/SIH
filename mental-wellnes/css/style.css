@@ -100,8 +100,6 @@ button:hover {
   transform: scale(1.05); /* Slight zoom effect */
 }
 
-}
-
 .btn:hover {
   background: #1d4ed8;
 }
@@ -301,7 +299,6 @@ footer {
   font-size: 0.9rem;
 }
 
-
 /* ===============================
    😊 Mood Tracker Styles (Compact Version)
    =============================== */
@@ -355,7 +352,7 @@ footer {
 
 /* General Page Styling */
 body {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   background: #f3f9f7;
   color: #333;
   margin: 0;
@@ -381,7 +378,7 @@ body {
   border-radius: 12px;
   padding: 25px;
   margin-bottom: 30px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
 .resource-box h3 {
@@ -427,7 +424,7 @@ body {
 .wellness-section {
   display: grid;
   grid-template-columns: 1fr 1fr; /* left + right */
-  grid-template-rows: 1fr 1fr;    /* breathing + meditation */
+  grid-template-rows: 1fr 1fr; /* breathing + meditation */
   gap: 20px;
   height: 80vh; /* adjustable */
   margin-top: 30px;
@@ -441,21 +438,21 @@ body {
   background: #d1fae5; /* soft green */
   border-radius: 15px;
   padding: 20px;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
 .wellness-section .breathing {
   background: #bfdbfe; /* soft blue */
   border-radius: 15px;
   padding: 20px;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
 .wellness-section .meditation {
   background: #fbcfe8; /* soft pink */
   border-radius: 15px;
   padding: 20px;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
 .wellness-section h2 {
