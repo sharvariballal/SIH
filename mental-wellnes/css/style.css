@@ -422,3 +422,44 @@ body {
 .video-list a:hover {
   color: #023e8a;
 }
+
+/* === Wellness Section Styling === */
+.wellness-section {
+  display: grid;
+  grid-template-columns: 1fr 1fr; /* left + right */
+  grid-template-rows: 1fr 1fr;    /* breathing + meditation */
+  gap: 20px;
+  height: 80vh; /* adjustable */
+  margin-top: 30px;
+  margin-bottom: 30px;
+  margin-left: 30px;
+  margin-right: 30px;
+}
+
+.wellness-section .mood-tracker {
+  grid-row: span 2; /* take full left height */
+  background: #d1fae5; /* soft green */
+  border-radius: 15px;
+  padding: 20px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+.wellness-section .breathing {
+  background: #bfdbfe; /* soft blue */
+  border-radius: 15px;
+  padding: 20px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+.wellness-section .meditation {
+  background: #fbcfe8; /* soft pink */
+  border-radius: 15px;
+  padding: 20px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+.wellness-section h2 {
+  margin-top: 0;
+  font-size: 20px;
+  color: #333;
+}
