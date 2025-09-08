@@ -14,20 +14,18 @@ app.use(express.json());
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-// 👉 Serve static frontend files (index.html, css, js)
-app.use(express.static(__dirname));
+// Serve static files from "public" folder
+app.use(express.static(path.join(__dirname, "public")));
 
 // Routes
 app.post("/chat", async (req, res) => {
   const { message } = req.body;
-
-  // temporary mock response
   res.json({ reply: `You said: ${message}` });
 });
 
-// 👉 Default route for index.html
+// Default route
 app.get("/", (req, res) => {
-  res.sendFile(path.join(__dirname, "index.html"));
+  res.sendFile(path.join(__dirname, "public", "index.html"));
 });
 
 // Start server
