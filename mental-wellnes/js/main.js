@@ -69,3 +69,30 @@ document.addEventListener("DOMContentLoaded", () => {
   loadComponent("footer", "footer.html");
   loadPage("hero");
 });
+
+//pwa feature
+if ("serviceWorker" in navigator) {
+  navigator.serviceWorker.register("/service-worker.js")
+    .then(() => console.log("Service Worker Registered"));
+}
+let deferredPrompt;
+const installBtn = document.getElementById("installBtn");
+
+window.addEventListener("beforeinstallprompt", (e) => {
+  e.preventDefault();
+  deferredPrompt = e;
+  installBtn.style.display = "block"; // show button
+});
+
+installBtn.addEventListener("click", () => {
+  installBtn.style.display = "none"; 
+  deferredPrompt.prompt();
+  deferredPrompt.userChoice.then((choiceResult) => {
+    if (choiceResult.outcome === "accepted") {
+      console.log("User accepted the PWA install");
+    } else {
+      console.log("User dismissed the PWA install");
+    }
+    deferredPrompt = null;
+  });
+});

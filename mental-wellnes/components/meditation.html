@@ -1,15 +1,377 @@
-<section class="meditation">
-  <div class="container">
-    <h2>Mindfulness Zone 🧘‍♂️</h2>
-    <p>Take a deep breath and relax with guided meditation.</p>
-    <audio controls>
-      <source
-        src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"
-        type="audio/mpeg"
-      />
-      Your browser does not support audio.
-    </audio>
-    <br />
-    <button class="btn">Start 5-Minute Meditation</button>
-  </div>
+
+<section class="meditation w-full max-w-2xl bg-white rounded-2xl shadow-xl p-6 sm:p-8 space-y-6 mx-auto my-8">
+
+    <!-- Header and Stepper -->
+    <div class="text-center">
+        <h1 class="text-2xl sm:text-3xl font-bold text-gray-800">Mental Health Check-in</h1>
+        <p class="text-gray-500 mt-1">A gentle space to reflect on your well-being.</p>
+    </div>
+
+    <div id="stepper" class="flex justify-between items-center border-t border-b border-gray-200 py-4">
+        <!-- Step 1 -->
+        <div id="step-1" class="step step-active flex-1 text-center border-b-4 pb-2">
+            <span class="text-sm sm:text-base font-semibold">1. Questions</span>
+        </div>
+        <!-- Step 2 -->
+        <div id="step-2" class="step flex-1 text-center border-b-4 border-transparent text-gray-400 pb-2">
+            <span class="text-sm sm:text-base font-semibold">2. Your Result</span>
+        </div>
+        <!-- Step 3 -->
+        <div id="step-3" class="step flex-1 text-center border-b-4 border-transparent text-gray-400 pb-2">
+            <span class="text-sm sm:text-base font-semibold">3. Analysis</span>
+        </div>
+    </div>
+
+    <!-- Main Content Area -->
+    <div id="main-content" class="fade-in">
+
+        <!-- Step 1: Questions -->
+        <div id="questions-view">
+            <div class="bg-pink-50 p-4 rounded-lg text-center mb-4">
+                <p class="font-semibold text-gray-700">Time Elapsed: <span id="timer" class="text-pink-500">00:00</span></p>
+                <p class="text-sm text-gray-500 mt-1">Over the <b>last 2 weeks</b>, how often have you been bothered by the following?</p>
+            </div>
+
+            <div id="question-container" class="space-y-4">
+                <h2 class="text-lg font-semibold text-gray-800 text-center"><span id="question-number"></span>. <span id="question-text"></span></h2>
+                <div id="options-container" class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    <!-- Options will be injected here -->
+                </div>
+            </div>
+
+            <div class="flex justify-between items-center mt-6">
+                <button id="prev-btn" class="btn-secondary font-bold py-2 px-6 rounded-lg">Previous</button>
+                <div class="text-sm text-gray-500 font-medium">Question <span id="current-q-indicator">1</span> of 9</div>
+                <button id="next-btn" class="btn-primary font-bold py-2 px-6 rounded-lg">Next</button>
+            </div>
+        </div>
+
+        <!-- Step 2: Results -->
+        <div id="results-view" class="hidden text-center space-y-4">
+            <h2 class="text-2xl font-bold text-gray-800">Your Results</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 items-center bg-green-50 p-6 rounded-lg">
+                <div class="space-y-2">
+                    <p class="text-gray-600">You completed the test in <strong id="time-taken" class="text-green-600"></strong>.</p>
+                    <p class="text-gray-600">Your total score is:</p>
+                    <p id="final-score" class="text-5xl font-bold text-green-500"></p>
+                    <p id="score-category" class="text-lg font-semibold text-green-700"></p>
+                </div>
+                <div class="relative w-full max-w-xs mx-auto">
+                    <canvas id="results-chart"></canvas>
+                </div>
+            </div>
+            <button id="view-analysis-btn" class="w-full btn-primary font-bold py-3 px-6 rounded-lg mt-4">See My Analysis</button>
+        </div>
+
+        <!-- Step 3: Analysis -->
+        <div id="analysis-view" class="hidden space-y-4">
+             <h2 class="text-2xl font-bold text-gray-800 text-center">Analysis & Gentle Suggestions ✨</h2>
+             <div id="analysis-content" class="space-y-4">
+                <!-- Analysis content will be injected here -->
+             </div>
+             <button id="retake-btn" class="w-full btn-secondary font-bold py-3 px-6 rounded-lg mt-4">Retake Test</button>
+        </div>
+
+    </div>
+
+     <!-- Disclaimer -->
+    <div class="text-center text-xs text-gray-400 pt-4 border-t">
+        <strong>Disclaimer:</strong> This is an educational tool, not a diagnostic test. Please consult a healthcare professional for a formal diagnosis or medical advice.
+    </div>
 </section>
+
+<script>
+    // Self-invoking function to avoid polluting the global scope
+    (function() {
+        const questions = [
+            { text: "Little interest or pleasure in doing things?" },
+            { text: "Feeling down, depressed, or hopeless?" },
+            { text: "Trouble falling or staying asleep, or sleeping too much?" },
+            { text: "Feeling tired or having little energy?" },
+            { text: "Poor appetite or overeating?" },
+            { text: "Feeling bad about yourself — or that you are a failure or have let yourself or your family down?" },
+            { text: "Trouble concentrating on things, such as reading or watching television?" },
+            { text: "Moving or speaking so slowly that other people could have noticed? Or the opposite — being so fidgety or restless that you have been moving around a lot more than usual?" },
+            { text: "Thoughts that you would be better off dead, or of hurting yourself in some way?" }
+        ];
+        const options = [
+            { text: "Not at all", value: 0 },
+            { text: "Several days", value: 1 },
+            { text: "More than half the days", value: 2 },
+            { text: "Nearly every day", value: 3 }
+        ];
+
+        const analysisData = {
+            '0-4': {
+                title: 'Minimal Symptoms',
+                positive: 'You are showing remarkable resilience! It seems you have a solid foundation of well-being and are navigating life\'s challenges effectively right now.',
+                suggestions: [
+                    '<b>Maintain Your Habits:</b> Keep doing what\'s working for you, whether it\'s your exercise routine, hobbies, or how you connect with friends and family.',
+                    '<b>Practice Gratitude:</b> Each day, think of three things you\'re grateful for. This simple act can boost your mood and reinforce positivity.',
+                    '<b>Be Mindful:</b> Continue to check in with yourself regularly. Building this habit helps you notice if things start to change.'
+                ],
+                bgColor: 'bg-green-50',
+                textColor: 'text-green-700'
+            },
+            '5-9': {
+                title: 'Mild Symptoms',
+                positive: 'You are highly in tune with your feelings. Noticing these subtle shifts is a skill, and it\'s the first step toward managing your mental health proactively.',
+                suggestions: [
+                    '<b>Prioritize a "Well-being Hour":</b> Dedicate one hour each day to an activity that calms you, with no pressure to be productive. This could be listening to music, taking a walk, or drawing.',
+                    '<b>Focus on the Basics:</b> Ensure you\'re getting 7-9 hours of sleep, drinking enough water, and eating nutritious meals. Small physical adjustments can have a big mental impact.',
+                    '<b>Talk It Out:</b> Share what you\'re feeling with a trusted friend or family member. Simply saying it out loud can make a world of difference.'
+                ],
+                bgColor: 'bg-yellow-50',
+                textColor: 'text-yellow-700'
+            },
+            '10-14': {
+                title: 'Moderate Symptoms',
+                positive: 'Your courage is undeniable. It takes immense strength to face these persistent feelings and seek understanding. You are actively trying to find a path forward.',
+                suggestions: [
+                    '<b>Consider Professional Support:</b> This is a great time to consider talking to a school counselor, therapist, or doctor. They can provide tools and strategies specifically for you.',
+                    '<b>Create a Routine:</b> When energy is low, a simple daily structure can help. Set consistent times for waking up, eating, and sleeping. This provides stability when feelings are chaotic.',
+                    '<b>Mindful Movement:</b> Engage in gentle exercise like yoga or walking. Focus on how your body feels, not on performance.'
+                ],
+                bgColor: 'bg-orange-50',
+                textColor: 'text-orange-700'
+            },
+            '15-19': {
+                title: 'Moderately Severe Symptoms',
+                positive: 'Your resilience in getting through each day is a testament to your inner strength. Acknowledging the depth of your struggle is a brave and crucial first step toward healing.',
+                suggestions: [
+                    '<b>Seek Professional Help:</b> It is highly recommended to talk to a mental health professional or a doctor. You do not have to carry this weight alone.',
+                    '<b>Focus on One Small Thing:</b> The idea of "fixing everything" can be overwhelming. Instead, focus on one tiny, achievable goal for the day, like taking a shower or stepping outside for 5 minutes.',
+                    '<b>Connect with a Helpline:</b> In a crisis, support is available. Search for a local mental health crisis line for immediate, confidential help.'
+                ],
+                bgColor: 'bg-red-50',
+                textColor: 'text-red-700'
+            },
+            '20-27': {
+                title: 'Severe Symptoms',
+                positive: 'Your resilience in just getting through each day is a testament to your inner strength. Acknowledging the depth of your struggle is a brave and crucial first step toward healing.',
+                suggestions: [
+                    '<b>Seek Professional Help Immediately:</b> It is very important to talk to a mental health professional or a doctor. They can offer effective treatments that can help you feel significantly better.',
+                    '<b>Create a Safety Plan:</b> If you are having thoughts of self-harm, please tell someone immediately. A trusted adult, a helpline, or a doctor can help you create a safety plan.',
+                    '<b>Connect with a Helpline:</b> Support is available 24/7. Search online for a national suicide prevention lifeline or a local crisis center for immediate, free, and confidential help.'
+                ],
+                bgColor: 'bg-pink-50',
+                textColor: 'text-pink-700'
+            },
+        };
+
+        // State
+        let currentQuestionIndex = 0;
+        let userAnswers = new Array(questions.length).fill(null);
+        let timerInterval;
+        let secondsElapsed = 0;
+        let chartInstance = null;
+        
+        // Element selectors
+        const meditationSection = document.querySelector('.meditation');
+        if (!meditationSection) return; // Stop if the section is not on the page
+
+        const questionsView = meditationSection.querySelector('#questions-view');
+        const resultsView = meditationSection.querySelector('#results-view');
+        const analysisView = meditationSection.querySelector('#analysis-view');
+        
+        const questionNumberEl = meditationSection.querySelector('#question-number');
+        const questionTextEl = meditationSection.querySelector('#question-text');
+        const optionsContainerEl = meditationSection.querySelector('#options-container');
+        const currentQIndicatorEl = meditationSection.querySelector('#current-q-indicator');
+
+        const prevBtn = meditationSection.querySelector('#prev-btn');
+        const nextBtn = meditationSection.querySelector('#next-btn');
+        const viewAnalysisBtn = meditationSection.querySelector('#view-analysis-btn');
+        const retakeBtn = meditationSection.querySelector('#retake-btn');
+
+        const timerEl = meditationSection.querySelector('#timer');
+
+        // Functions
+        function startTimer() {
+            if (timerInterval) clearInterval(timerInterval);
+            timerInterval = setInterval(() => {
+                secondsElapsed++;
+                const minutes = Math.floor(secondsElapsed / 60).toString().padStart(2, '0');
+                const seconds = (secondsElapsed % 60).toString().padStart(2, '0');
+                timerEl.textContent = `${minutes}:${seconds}`;
+            }, 1000);
+        }
+
+        function stopTimer() {
+            clearInterval(timerInterval);
+        }
+        
+        function updateStepper(step) {
+            meditationSection.querySelectorAll('.step').forEach((s, index) => {
+                s.classList.remove('step-active');
+                s.classList.add('text-gray-400', 'border-transparent');
+                if ((index + 1) === step) {
+                    s.classList.add('step-active');
+                    s.classList.remove('text-gray-400', 'border-transparent');
+                }
+            });
+        }
+
+        function displayQuestion(index) {
+            const question = questions[index];
+            questionNumberEl.textContent = index + 1;
+            questionTextEl.textContent = question.text;
+            currentQIndicatorEl.textContent = index + 1;
+            optionsContainerEl.innerHTML = '';
+
+            options.forEach(option => {
+                const isChecked = userAnswers[index] === option.value;
+                optionsContainerEl.innerHTML += `
+                    <label class="radio-label flex items-center p-4 border-2 rounded-lg cursor-pointer transition-all duration-200 hover:border-teal-400">
+                        <input type="radio" name="answer" value="${option.value}" class="h-5 w-5 mr-3 accent-teal-500" ${isChecked ? 'checked' : ''}>
+                        <span class="text-gray-700">${option.text}</span>
+                    </label>
+                `;
+            });
+
+            meditationSection.querySelectorAll('input[name="answer"]').forEach(radio => {
+                radio.addEventListener('change', (e) => {
+                    userAnswers[index] = parseInt(e.target.value);
+                    nextBtn.disabled = false;
+                    nextBtn.classList.remove('opacity-50', 'cursor-not-allowed');
+                });
+            });
+
+            prevBtn.style.visibility = index === 0 ? 'hidden' : 'visible';
+            nextBtn.textContent = index === questions.length - 1 ? 'See Results' : 'Next';
+            
+            if (userAnswers[index] === null) {
+                nextBtn.disabled = true;
+                nextBtn.classList.add('opacity-50', 'cursor-not-allowed');
+            } else {
+                nextBtn.disabled = false;
+                nextBtn.classList.remove('opacity-50', 'cursor-not-allowed');
+            }
+        }
+
+        function calculateResults() {
+            const totalScore = userAnswers.reduce((sum, val) => sum + (val !== null ? val : 0), 0);
+            let category = '';
+            let analysisKey = '';
+
+            if (totalScore <= 4) { category = 'Minimal Depression'; analysisKey = '0-4'; }
+            else if (totalScore <= 9) { category = 'Mild Depression'; analysisKey = '5-9'; }
+            else if (totalScore <= 14) { category = 'Moderate Depression'; analysisKey = '10-14'; }
+            else if (totalScore <= 19) { category = 'Moderately Severe Depression'; analysisKey = '15-19'; }
+            else { category = 'Severe Depression'; analysisKey = '20-27'; }
+
+            return { totalScore, category, analysisKey };
+        }
+
+        function showResults() {
+            stopTimer();
+            const { totalScore, category, analysisKey } = calculateResults();
+            
+            meditationSection.querySelector('#final-score').textContent = totalScore;
+            meditationSection.querySelector('#score-category').textContent = category;
+            meditationSection.querySelector('#time-taken').textContent = timerEl.textContent;
+            
+            const answerCounts = [0, 0, 0, 0];
+            userAnswers.forEach(answer => {
+                if (answer !== null) answerCounts[answer]++;
+            });
+
+            drawPieChart(answerCounts);
+            prepareAnalysis(analysisKey);
+
+            questionsView.classList.add('hidden');
+            resultsView.classList.remove('hidden');
+            updateStepper(2);
+        }
+        
+        function drawPieChart(data) {
+            const ctx = meditationSection.querySelector('#results-chart').getContext('2d');
+            if(chartInstance) {
+                chartInstance.destroy();
+            }
+            chartInstance = new Chart(ctx, {
+                type: 'pie',
+                data: {
+                    labels: ['Not at all', 'Several days', 'More than half the days', 'Nearly every day'],
+                    datasets: [{
+                        label: 'Answer Distribution',
+                        data: data,
+                        backgroundColor: ['#a7f3d0', '#fde68a', '#fda4af', '#f0abfc'],
+                        borderColor: ['#34d399', '#fcd34d', '#f43f5e', '#e879f9'],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: { legend: { position: 'top' }, title: { display: true, text: 'Your Answer Distribution' } }
+                }
+            });
+        }
+
+        function prepareAnalysis(key) {
+             const data = analysisData[key];
+             const contentEl = meditationSection.querySelector('#analysis-content');
+             contentEl.innerHTML = `
+                <div class="${data.bgColor} p-6 rounded-lg">
+                     <h3 class="text-xl font-bold ${data.textColor}">${data.title}</h3>
+                     <p class="mt-2 text-gray-700">💖 <strong>Positive Feature:</strong> ${data.positive}</p>
+                     <div class="mt-4 text-left space-y-2">
+                        <h4 class="font-semibold text-gray-800">🌿 Gentle Suggestions:</h4>
+                        <ul class="list-disc list-inside text-gray-600 space-y-1">
+                            ${data.suggestions.map(s => `<li>${s}</li>`).join('')}
+                        </ul>
+                     </div>
+                </div>
+             `;
+        }
+        
+        function resetTest() {
+            currentQuestionIndex = 0;
+            userAnswers.fill(null);
+            secondsElapsed = 0;
+            timerEl.textContent = '00:00';
+            stopTimer();
+            if (chartInstance) {
+                chartInstance.destroy();
+                chartInstance = null;
+            }
+            analysisView.classList.add('hidden');
+            resultsView.classList.add('hidden');
+            questionsView.classList.remove('hidden');
+            updateStepper(1);
+            displayQuestion(0);
+            startTimer();
+        }
+
+        nextBtn.addEventListener('click', () => {
+            if (currentQuestionIndex < questions.length - 1) {
+                currentQuestionIndex++;
+                displayQuestion(currentQuestionIndex);
+            } else {
+                showResults();
+            }
+        });
+
+        prevBtn.addEventListener('click', () => {
+            if (currentQuestionIndex > 0) {
+                currentQuestionIndex--;
+                displayQuestion(currentQuestionIndex);
+            }
+        });
+        
+        viewAnalysisBtn.addEventListener('click', () => {
+            resultsView.classList.add('hidden');
+            analysisView.classList.remove('hidden');
+            updateStepper(3);
+        });
+        
+        retakeBtn.addEventListener('click', resetTest);
+
+        function initializeTest() {
+            displayQuestion(0);
+            startTimer();
+        }
+        
+        initializeTest();
+    })();
+</script>
