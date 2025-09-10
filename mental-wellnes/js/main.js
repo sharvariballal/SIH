@@ -1,63 +1,43 @@
 // Load component into container
-
 async function loadComponent(containerId, file) {
+  try {
+    console.log(`Fetching /components/${file} into #${containerId}...`);
+    const response = await fetch(`/components/${file}`);
+    console.log("Response status:", response.status);
 
-  try {
+    if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
 
-    console.log(`Fetching /components/${file} into #${containerId}...`);
+    const content = await response.text();
+    const container = document.getElementById(containerId);
 
-    const response = await fetch(`/components/${file}`);
+    if (!container) {
+      throw new Error(`Container #${containerId} not found in DOM`);
+    }
 
-    console.log("Response status:", response.status);
+    // 1. Update the page content
+    container.innerHTML = content;
 
+    // 2. Scroll to the top of the page AFTER content is loaded
+    window.scrollTo(0, 0);
 
+    console.log(`${file} loaded successfully into #${containerId}`);
 
-    if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+    // Re-attach listeners for any new elements that were just loaded
+    attachNavListeners();
+  
+    // If the booking page was loaded, attach its specific form listener
+    if (file === "booking.html") {
+      attachBookingFormListener();
+    }
 
-
-
-    const content = await response.text();
-
-    const container = document.getElementById(containerId);
-
-
-
-    if (!container) {
-
-      throw new Error(`Container #${containerId} not found in DOM`);
-
-    }
-
-
-
-    container.innerHTML = content;
-
-    console.log(`${file} loaded successfully into #${containerId}`);
-
-
-
-    attachNavListeners();
-
-
-
-  } catch (error) {
-
-    console.error(`Error loading ${file}:`, error);
-
-    const fallback = document.getElementById(containerId);
-
-    if (fallback) fallback.innerHTML = `<p>Error loading ${file}</p>`;
-
-  }
-
+  } catch (error) {
+    console.error(`Error loading ${file}:`, error);
+    const fallback = document.getElementById(containerId);
+    if (fallback) fallback.innerHTML = `<p>Error loading ${file}</p>`;
+  }
 }
 
-
-
-
-
 // Handle page routing
-
 function loadPage(page) {
 
   switch (page) {
@@ -202,33 +182,25 @@ function attachNavListeners() {
 
 }
 
-
-
-// Load header, footer, and default page on startup
-
-document.addEventListener("DOMContentLoaded", () => {
-
-  loadComponent("header", "header.html");
-
-  loadComponent("footer", "footer.html");
-
-  loadPage("hero");
-
-});
-
-
-
-document.addEventListener("DOMContentLoaded", () => {
+function attachBookingFormListener() {
   const form = document.getElementById("bookingForm");
   const confirmation = document.getElementById("confirmationMsg");
 
-  form.addEventListener("submit", function(event) {
-    event.preventDefault(); // Stop page reload
+  // Only run if the form actually exists on the page
+  if (form && confirmation) {
+    form.addEventListener("submit", function(event) {
+      event.preventDefault(); // Stop page reload
+      confirmation.style.display = "block"; // Show confirmation
+      form.reset(); // Clear form
+    });
+  }
+}
 
-    // Show confirmation
-    confirmation.style.display = "block";
-
-    // Clear form
-    form.reset();
-  });
+// Load header, footer, and default page on startup
+document.addEventListener("DOMContentLoaded", () => {
+  loadComponent("header", "header.html");
+  loadComponent("footer", "footer.html");
+  loadPage("hero");
 });
+
+
