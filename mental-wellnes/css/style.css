@@ -2,9 +2,9 @@
    Base Styles
 ========================= */
 body {
-  margin: 0;
+  margin: 30px;
   font-family: "Poppins", sans-serif;
-  background: #f9fafb;
+  background: #b3d9ff;
   color: #333;
 }
 
@@ -19,15 +19,35 @@ h3 {
   width: 90%;
   max-width: 1100px;
   margin-left: 20px;
-  margin-right: 10%;
+  margin-right: 20px;
 }
 
 /* =========================
    Navbar
 ========================= */
+/* Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Segoe UI', sans-serif;
+}
+
 .navbar {
   background: #e6f4ea;
-  padding: 0.5rem 0;
+  padding: 0.75rem 1.5rem;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
 }
 
 .nav-logo {
@@ -40,18 +60,79 @@ h3 {
 .nav-menu {
   list-style: none;
   display: flex;
-  gap: 1.5rem;
+  gap: 1.25rem;
+  align-items: center;
+  transition: all 0.3s ease-in-out;
 }
 
 .nav-menu a {
   text-decoration: none;
   color: #333;
   font-weight: 500;
+  transition: color 0.3s ease;
 }
 
 .nav-menu a:hover {
   color: #2563eb;
 }
+
+.signup-btn {
+  padding: 0.4rem 0.9rem;
+  border: 1px solid #2563eb;
+  border-radius: 6px;
+  background-color: transparent;
+  color: #2563eb;
+  transition: all 0.3s ease;
+}
+
+.signup-btn:hover {
+  background-color: #2563eb;
+  color: #fff;
+}
+
+/* Hamburger menu */
+.menu-toggle {
+  display: none;
+  flex-direction: column;
+  cursor: pointer;
+}
+
+.menu-toggle .bar {
+  height: 3px;
+  width: 25px;
+  background: #333;
+  margin: 4px 0;
+  border-radius: 2px;
+}
+
+/* Responsive styles */
+@media (max-width: 900px) {
+  .menu-toggle {
+    display: flex;
+  }
+
+  .nav-menu {
+    flex-direction: column;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: #e6f4ea;
+    overflow: hidden;
+    max-height: 0;
+  }
+
+  .nav-menu.active {
+    max-height: 500px;
+    padding: 1rem 0;
+  }
+
+  .nav-menu li {
+    text-align: center;
+    padding: 0.6rem 0;
+  }
+}
+
 
 /* =========================
    Hero Section

@@ -1,12 +1,31 @@
-// Load component
+// Load component into container
 async function loadComponent(containerId, file) {
-  const response = await fetch(`components/${file}`);
-  const content = await response.text();
-  document.getElementById(containerId).innerHTML = content;
+  try {
+    console.log(`Fetching /components/${file} into #${containerId}...`);
+    const response = await fetch(`/components/${file}`);
+    console.log("Response status:", response.status);
 
-  // Re-attach navigation after loading
-  attachNavListeners();
+    if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+
+    const content = await response.text();
+    const container = document.getElementById(containerId);
+
+    if (!container) {
+      throw new Error(`Container #${containerId} not found in DOM`);
+    }
+
+    container.innerHTML = content;
+    console.log(`${file} loaded successfully into #${containerId}`);
+
+    attachNavListeners();
+
+  } catch (error) {
+    console.error(`Error loading ${file}:`, error);
+    const fallback = document.getElementById(containerId);
+    if (fallback) fallback.innerHTML = `<p>Error loading ${file}</p>`;
+  }
 }
+
 
 // Handle page routing
 function loadPage(page) {
@@ -52,8 +71,9 @@ function loadPage(page) {
   }
 }
 
-// Attach listeners for nav + feature cards
+// Attach listeners for nav + mobile menu
 function attachNavListeners() {
+  // Navigation links
   document.querySelectorAll("[data-page]").forEach((el) => {
     el.addEventListener("click", (e) => {
       e.preventDefault();
@@ -61,11 +81,30 @@ function attachNavListeners() {
       loadPage(page);
     });
   });
+
+  // Mobile menu toggle (inside header.html)
+  const menuToggle = document.getElementById("mobile-menu");
+  const navMenu = document.querySelector(".nav-menu");
+  if (menuToggle && navMenu) {
+    menuToggle.addEventListener("click", () => {
+      navMenu.classList.toggle("active");
+    });
+  }
+
+  // Highlight active nav link
+  const currentURL = window.location.href;
+  const navLinks = document.querySelectorAll(".nav-link");
+  navLinks.forEach(link => {
+    if (link.href === currentURL) {
+      link.classList.add("active");
+    }
+  });
 }
 
-// Load header, footer, and default page
+// Load header, footer, and default page on startup
 document.addEventListener("DOMContentLoaded", () => {
   loadComponent("header", "header.html");
   loadComponent("footer", "footer.html");
   loadPage("hero");
 });
+
