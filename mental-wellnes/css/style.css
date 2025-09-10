@@ -689,7 +689,6 @@ body {
    =============================== */
 
    .booking{
-      margin-top: 50px;
       justify-content: center; /* Horizontally center */
       align-items: center;     /* Vertically center */
       width: 100%;
@@ -719,7 +718,9 @@ body {
   width: 90%;
   text-align: left;
   box-sizing: border-box;
-  margin: 0 auto;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 50px;
 }
 
 /* Subtitle text */
