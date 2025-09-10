@@ -216,3 +216,19 @@ document.addEventListener("DOMContentLoaded", () => {
 
 });
 
+
+
+document.addEventListener("DOMContentLoaded", () => {
+  const form = document.getElementById("bookingForm");
+  const confirmation = document.getElementById("confirmationMsg");
+
+  form.addEventListener("submit", function(event) {
+    event.preventDefault(); // Stop page reload
+
+    // Show confirmation
+    confirmation.style.display = "block";
+
+    // Clear form
+    form.reset();
+  });
+});

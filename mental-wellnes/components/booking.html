@@ -1,27 +1,39 @@
-<section class="booking">
-  <div class="container">
-    <h2>Confidential Booking 🔒</h2>
-    <form>
-      <label>Your Name</label>
-      <input type="text" placeholder="Enter your name" required />
+  <section class="booking">
+    <div class="booking-page-wrapper"></div>
+    <div class="booking-container">
+      <h2>🔒 Confidential Counselling Booking</h2>
+      <p class="subtitle">
+        Your privacy is our priority. Book a confidential session with a trusted counsellor.
+      </p>
 
-      <label>Email</label>
-      <input type="email" placeholder="Enter your email" required />
+      <form id="bookingForm">
+        <label>Your Name</label>
+        <input type="text" placeholder="Enter your name" required />
 
-      <label>Select Counsellor</label>
-      <select>
-        <option>Dr. A Sharma</option>
-        <option>Dr. B Mehta</option>
-        <option>Dr. C Rao</option>
-      </select>
+        <label>Email Address</label>
+        <input type="email" placeholder="Enter your email" required />
 
-      <label>Preferred Date</label>
-      <input type="date" required />
+        <label>Select Counsellor</label>
+        <select required>
+          <option value="">-- Select --</option>
+          <option>Dr. A Sharma</option>
+          <option>Dr. B Mehta</option>
+         <option>Dr. C Rao</option>
+        </select>
 
-      <label>Preferred Time</label>
-      <input type="time" required />
+        <label>Preferred Date</label>
+        <input type="date" required />
 
-      <button class="btn">Book Appointment</button>
-    </form>
-  </div>
-</section>
+        <label>Preferred Time</label>
+        <input type="time" required />
+
+        <button id="bookingbtn" type="submit">Book Appointment</button>
+      </form>
+
+      <div class="confirmation" id="confirmationMsg">
+        ✅ Your appointment has been booked successfully!
+      </div>
+    </div>
+  </section>
+
+
