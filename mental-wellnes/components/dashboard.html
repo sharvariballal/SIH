@@ -1,33 +1,257 @@
 <section class="dashboard">
   <div class="container">
     <h2>Your Wellness Dashboard 📊</h2>
-    <canvas id="moodChart"></canvas>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+
+            <!-- Card 1: Overall Wellness Score -->
+            <div class="dashboard-card p-6 flex flex-col items-center justify-center text-center lg:col-span-1">
+                <h2 class="text-lg font-semibold text-gray-600 mb-4">Overall Wellness</h2>
+                <div class="relative w-40 h-40">
+                    <svg class="w-full h-full" viewBox="0 0 36 36">
+                        <path class="text-gray-200"
+                            d="M18 2.0845
+                              a 15.9155 15.9155 0 0 1 0 31.831
+                              a 15.9155 15.9155 0 0 1 0 -31.831"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="3" />
+                        <path class="text-blue-500"
+                            stroke-dasharray="80, 100"
+                            d="M18 2.0845
+                              a 15.9155 15.9155 0 0 1 0 31.831
+                              a 15.9155 15.9155 0 0 1 0 -31.831"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="3"
+                            stroke-linecap="round" />
+                    </svg>
+                    <div class="absolute inset-0 flex flex-col items-center justify-center">
+                        <span class="text-4xl font-bold text-blue-600">80%</span>
+                        <span class="text-sm text-gray-500">Positive</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 2: Current Streak -->
+            <div class="dashboard-card p-6 flex flex-col items-center justify-center text-center lg:col-span-1">
+                <h2 class="text-lg font-semibold text-gray-600 mb-4">Daily Check-in Streak</h2>
+                <div class="flex items-center text-green-500">
+                     <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd" d="M12.395 2.553a1 1 0 00-1.45.385c-.345.675-.218 1.46.352 1.879l.928.619a.955.955 0 01.39.296l.325.325a.955.955 0 01.296.39l.619.928c.42.57.994.698 1.879.352a1 1 0 00.385-1.45l-2.553-3.895a1 1 0 00-1.115-.464zM8.395 6.553a1 1 0 00-1.45.385c-.345.675-.218 1.46.352 1.879l.928.619a.955.955 0 01.39.296l.325.325a.955.955 0 01.296.39l.619.928c.42.57.994.698 1.879.352a1 1 0 00.385-1.45l-2.553-3.895a1 1 0 00-1.115-.464z" clip-rule="evenodd" />
+                        <path fill-rule="evenodd" d="M9 11a1 1 0 100-2 1 1 0 000 2zm-2 2a1 1 0 100-2 1 1 0 000 2zm4 0a1 1 0 100-2 1 1 0 000 2zm-2 2a1 1 0 100-2 1 1 0 000 2zm-2-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 100-2 1 1 0 000 2zm5-2a1 1 0 100-2 1 1 0 000 2zM7 6a1 1 0 100-2 1 1 0 000 2z" clip-rule="evenodd" />
+                    </svg>
+                    <span class="text-6xl font-bold ml-2">14</span>
+                </div>
+                <p class="text-gray-500 mt-2">Days in a row!</p>
+            </div>
+
+            <!-- Card 3: Quick Actions -->
+            <div class="dashboard-card p-6 md:col-span-2 lg:col-span-2 flex flex-col justify-center">
+                 <h2 class="text-lg font-semibold text-gray-600 mb-4 text-center">Quick Actions</h2>
+                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                     <button class="w-full bg-blue-500 text-white font-semibold py-3 px-4 rounded-lg hover:bg-blue-600 transition-colors">
+                         Track Your Mood
+                     </button>
+                     <button class="w-full bg-green-500 text-white font-semibold py-3 px-4 rounded-lg hover:bg-green-600 transition-colors">
+                         Take PHQ-9 Test
+                     </button>
+                 </div>
+            </div>
+
+            <!-- Card 4: PHQ-9 History -->
+            <div class="dashboard-card p-6 md:col-span-2">
+                <h2 class="text-lg font-semibold text-gray-600">PHQ-9 Score History</h2>
+                <p class="text-sm text-gray-500 mb-4">Tracking depressive symptoms over time. Lower is better.</p>
+                <canvas id="phq9Chart"></canvas>
+            </div>
+
+            <!-- Card 5: Mood Tracker -->
+            <div class="dashboard-card p-6 md:col-span-2">
+                <h2 class="text-lg font-semibold text-gray-600">Weekly Mood Summary</h2>
+                <p class="text-sm text-gray-500 mb-4">Your most frequent moods this week.</p>
+                <canvas id="moodChart"></canvas>
+            </div>
+            
+            <!-- Card 6: Sleep vs Stress -->
+            <div class="dashboard-card p-6 md:col-span-2 lg:col-span-4">
+                <h2 class="text-lg font-semibold text-gray-600">Sleep vs. Stress Levels</h2>
+                <p class="text-sm text-gray-500 mb-4">How your sleep quality correlates with stress.</p>
+                <canvas id="sleepStressChart"></canvas>
+            </div>
+
+            <!-- Card 7: Badges Unlocked -->
+            <div class="dashboard-card p-6 md:col-span-2 lg:col-span-4">
+                <h2 class="text-lg font-semibold text-gray-600 mb-4">Badges Unlocked</h2>
+                <div id="badges-container" class="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8 gap-4 text-center">
+                    <!-- Badges will be dynamically inserted here -->
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+
+            // --- 1. PHQ-9 Chart ---
+            const phq9Ctx = document.getElementById('phq9Chart')?.getContext('2d');
+            if (phq9Ctx) {
+                new Chart(phq9Ctx, {
+                    type: 'line',
+                    data: {
+                        labels: ['May', 'June', 'July', 'Aug', 'Sept'],
+                        datasets: [{
+                            label: 'PHQ-9 Score',
+                            data: [12, 9, 7, 8, 5],
+                            borderColor: '#3B82F6', // Blue-500
+                            backgroundColor: 'rgba(59, 130, 246, 0.1)',
+                            fill: true,
+                            tension: 0.4,
+                            pointBackgroundColor: '#3B82F6',
+                            pointRadius: 5
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                max: 27, // Max score for PHQ-9
+                                title: { display: true, text: 'Score' }
+                            }
+                        },
+                        plugins: {
+                            legend: { display: false }
+                        }
+                    }
+                });
+            }
+
+            // --- 2. Mood Chart ---
+            const moodCtx = document.getElementById('moodChart')?.getContext('2d');
+            if (moodCtx) {
+                new Chart(moodCtx, {
+                    type: 'bar',
+                    data: {
+                        labels: ['Happy', 'Calm', 'Okay', 'Anxious', 'Sad'],
+                        datasets: [{
+                            label: 'Days',
+                            data: [3, 2, 1, 1, 0],
+                            backgroundColor: [
+                                '#10B981', // Emerald-500
+                                '#60A5FA', // Blue-400
+                                '#FBBF24', // Amber-400
+                                '#F87171', // Red-400
+                                '#9CA3AF'  // Gray-400
+                            ],
+                            borderRadius: 6
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        indexAxis: 'y',
+                        scales: {
+                            x: {
+                                beginAtZero: true,
+                                title: { display: true, text: 'Number of Days' }
+                            }
+                        },
+                        plugins: {
+                            legend: { display: false }
+                        }
+                    }
+                });
+            }
+            
+            // --- 3. Sleep vs Stress Chart ---
+            const sleepStressCtx = document.getElementById('sleepStressChart')?.getContext('2d');
+            if (sleepStressCtx) {
+                new Chart(sleepStressCtx, {
+                    type: 'bar',
+                    data: {
+                        labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+                        datasets: [
+                            {
+                                type: 'line',
+                                label: 'Stress Level (1-10)',
+                                data: [6, 7, 5, 4, 3, 5, 2],
+                                borderColor: '#EF4444', // Red-500
+                                backgroundColor: 'rgba(239, 68, 68, 0.1)',
+                                yAxisID: 'y1',
+                                tension: 0.3,
+                                pointRadius: 5,
+                            },
+                            {
+                                type: 'bar',
+                                label: 'Sleep (Hours)',
+                                data: [6.5, 6, 7.5, 8, 8.5, 7, 9],
+                                backgroundColor: '#3B82F6', // Blue-500
+                                yAxisID: 'y',
+                                borderRadius: 4
+                            }
+                        ]
+                    },
+                    options: {
+                        responsive: true,
+                        scales: {
+                            y: {
+                                type: 'linear',
+                                display: true,
+                                position: 'left',
+                                beginAtZero: true,
+                                title: { display: true, text: 'Sleep (Hours)' },
+                                max: 10
+                            },
+                            y1: {
+                                type: 'linear',
+                                display: true,
+                                position: 'right',
+                                beginAtZero: true,
+                                title: { display: true, text: 'Stress Level (1-10)' },
+                                max: 10,
+                                grid: {
+                                    drawOnChartArea: false, // only draw grid for primary axis
+                                },
+                            }
+                        }
+                    }
+                });
+            }
+
+
+            // --- 4. Badges ---
+            const badges = [
+                { name: 'Mindful Start', desc: 'Completed your first meditation session.', icon: '🧘', unlocked: true },
+                { name: 'Journalist', desc: 'Wrote in your journal for 3 days straight.', icon: '✍️', unlocked: true },
+                { name: 'Week Streak', desc: 'Completed check-ins for 7 days in a row.', icon: '🗓️', unlocked: true },
+                { name: 'Self-Reflector', desc: 'Completed 5 PHQ-9 tests.', icon: '🧠', unlocked: true },
+                { name: 'Mood Master', desc: 'Tracked your mood for a full month.', icon: '😄', unlocked: false },
+                { name: 'Community Pillar', desc: 'Made your first post in the community.', icon: '💬', unlocked: true },
+                { name: 'Zen Seeker', desc: 'Completed 10 meditation sessions.', icon: '🕉️', unlocked: false },
+                { name: 'Consistency King', desc: 'Achieved a 30-day streak!', icon: '👑', unlocked: false },
+            ];
+
+            const badgesContainer = document.getElementById('badges-container');
+            if(badgesContainer){
+                badges.forEach(badge => {
+                    const badgeHTML = `
+                        <div class="badge-container relative flex flex-col items-center">
+                            <div class="text-5xl p-4 rounded-full ${badge.unlocked ? 'bg-green-100' : 'bg-gray-200'} ${badge.unlocked ? '' : 'grayscale'}">
+                                ${badge.icon}
+                            </div>
+                            <p class="text-sm font-semibold mt-2 ${badge.unlocked ? 'text-gray-700' : 'text-gray-400'}">${badge.name}</p>
+                            <div class="badge-tooltip absolute bottom-full mb-2 w-48 bg-gray-800 text-white text-xs rounded py-2 px-3 text-center z-10">
+                                ${badge.desc}
+                                <svg class="absolute text-gray-800 h-2 w-full left-0 top-full" x="0px" y="0px" viewBox="0 0 255 255" xml:space="preserve"><polygon class="fill-current" points="0,0 127.5,127.5 255,0"/></svg>
+                            </div>
+                        </div>
+                    `;
+                    badgesContainer.innerHTML += badgeHTML;
+                });
+            }
+        });
+    </script>
   </div>
 </section>
 
-<script>
-  // Mood Tracker Demo Chart
-  const ctx = document.getElementById("moodChart").getContext("2d");
-  new Chart(ctx, {
-    type: "line",
-    data: {
-      labels: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
-      datasets: [
-        {
-          label: "Mood Level",
-          data: [3, 4, 5, 2, 4, 5, 4],
-          borderColor: "#2563eb",
-          backgroundColor: "rgba(37,99,235,0.2)",
-          tension: 0.4,
-          fill: true,
-        },
-      ],
-    },
-    options: {
-      responsive: true,
-      scales: {
-        y: { beginAtZero: true, max: 5 },
-      },
-    },
-  });
-</script>
+

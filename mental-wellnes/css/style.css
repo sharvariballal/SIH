@@ -2,17 +2,20 @@
    Base Styles
 ========================= */
 body {
+  margin-top: 60px;
   margin: 30px;
   font-family: "Poppins", sans-serif;
   background: #b3d9ff;
   color: #333;
+  justify-content: center;
+  align-items: center;
 }
 
 h1,
 h2,
 h3 {
   font-family: "Montserrat", sans-serif;
-  margin-bottom: 1rem;
+  margin-bottom: 20px;
 }
 
 .container {
@@ -25,29 +28,43 @@ h3 {
 /* =========================
    Navbar
 ========================= */
-/* Reset */
+/* Universal Reset - This is good */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
+/* Apply a base font to the entire page */
 body {
   font-family: 'Segoe UI', sans-serif;
+  /* IMPORTANT: Add padding to prevent content from hiding under the fixed navbar */
+  /* You may need to adjust this value based on the final height of your navbar */
+  padding-top: 80px;
 }
 
+/* --- Navbar Styling --- */
+
+/* STEP 1: Make the main navbar a full-width, fixed bar */
 .navbar {
-  background: #e6f4ea;
-  padding: 0.75rem 1.5rem;
+  width: 100%; /* Make it span the full width */
+  position: fixed; /* Keep it at the top when scrolling */
+  top: 0;
+  left: 0;
+  background-color: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(10px); /* Adds a nice frosted glass effect */
+  z-index: 1000; /* Ensures it stays on top of other content */
 }
 
-.container {
-  max-width: 1200px;
-  margin: 0 auto;
+/* STEP 2: Use the inner container to set the width and center the content */
+.navbar .container {
+  width: 90%; /* Control the content width */
+  max-width: 1200px; /* Set a max-width for very large screens */
+  margin: 0 auto; /* This is the key to centering the container */
   display: flex;
   justify-content: space-between;
   align-items: center;
-  position: relative;
+  padding: 0.75rem 0; /* Apply padding here instead of the parent */
 }
 
 .nav-logo {
@@ -55,6 +72,7 @@ body {
   font-weight: 700;
   color: #2563eb;
   text-decoration: none;
+  
 }
 
 .nav-menu {
@@ -90,9 +108,10 @@ body {
   color: #fff;
 }
 
-/* Hamburger menu */
+/* --- Hamburger Menu & Responsive Styles --- */
+
 .menu-toggle {
-  display: none;
+  display: none; /* Hidden on desktop */
   flex-direction: column;
   cursor: pointer;
 }
@@ -103,27 +122,32 @@ body {
   background: #333;
   margin: 4px 0;
   border-radius: 2px;
+  transition: all 0.3s ease-in-out;
 }
 
-/* Responsive styles */
+/* Media query for mobile devices */
 @media (max-width: 900px) {
   .menu-toggle {
-    display: flex;
+    display: flex; /* Show the hamburger icon */
   }
 
   .nav-menu {
+    display: flex;
     flex-direction: column;
     position: absolute;
-    top: 100%;
+    top: 100%; /* Position it right below the header */
     left: 0;
-    right: 0;
+    width: 100%; /* Make the dropdown menu full width */
     background: #e6f4ea;
     overflow: hidden;
+    /* Use max-height for a smooth slide-down transition */
     max-height: 0;
+    transition: max-height 0.4s ease-in-out, padding 0.4s ease-in-out;
   }
 
+  /* When the menu is active, expand it */
   .nav-menu.active {
-    max-height: 500px;
+    max-height: 500px; /* A height large enough to show all items */
     padding: 1rem 0;
   }
 
@@ -132,8 +156,6 @@ body {
     padding: 0.6rem 0;
   }
 }
-
-
 /* =========================
    Hero Section
 ========================= */
@@ -165,7 +187,7 @@ body {
   margin-bottom: 1.5rem;
 }
 
-.btn {
+.hero.btn {
   background-color: #059669; /* Soft green */
   color: white;
   font-size: 16px;
@@ -177,12 +199,12 @@ body {
   transition: all 0.3s ease;
 }
 
-button:hover {
+.hero.button:hover {
   background-color: #a4e0eb; /* Darker green on hover */
   transform: scale(1.05); /* Slight zoom effect */
 }
 
-.btn:hover {
+.hero.btn:hover {
   background: #1d4ed8;
 }
 
@@ -190,15 +212,32 @@ button:hover {
    Features Section
 ========================= */
 .features-section {
+  margin-top: 60px;
   padding: 3rem 0;
+  text-align: center;
 }
 
 .features-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  grid-template-columns: repeat(4, 1fr);
   gap: 1.5rem;
+  /* ADD these two lines for horizontal centering */
+  width: 90%; /* Or a fixed value like max-width: 1200px; */
+  margin: 0 auto; /* Centers the grid on the page */
+}
+/* For screens smaller than 768px (like tablets and phones) */
+@media (max-width: 768px) {
+  .features-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }
 
+/* For screens smaller than 480px (like small phones) */
+@media (max-width: 480px) {
+  .features-grid {
+    grid-template-columns: 1fr; /* Stack them in a single column */
+  }
+}
 .feature-card {
   background: #fff;
   border: 1px solid #ddd;
@@ -324,7 +363,8 @@ button:hover {
    Resources Page
 ========================= */
 .resources {
-  padding: 3rem 0;
+  padding: 3rem 3rem;
+
 }
 
 .resources ul {
