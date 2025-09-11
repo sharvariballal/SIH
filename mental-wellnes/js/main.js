@@ -186,13 +186,17 @@ function attachBookingFormListener() {
   const form = document.getElementById("bookingForm");
   const confirmation = document.getElementById("confirmationMsg");
 
-  // Only run if the form actually exists on the page
   if (form && confirmation) {
+    console.log("Attaching listener to the booking form..."); // Debugging message
     form.addEventListener("submit", function(event) {
       event.preventDefault(); // Stop page reload
+      console.log("Form submission prevented!"); // Debugging message
+      
       confirmation.style.display = "block"; // Show confirmation
       form.reset(); // Clear form
     });
+  } else {
+    console.log("Booking form or confirmation message not found."); // Debugging message
   }
 }
 

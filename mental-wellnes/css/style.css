@@ -690,23 +690,10 @@ body {
 
    .booking{
       justify-content: center; /* Horizontally center */
-      align-items: center;     /* Vertically center */
+       /* Vertically center */
       width: 100%;
+      margin-top: 100px;
    }
-
-.booking-page-wrapper {
-  display: flex;
-  justify-content: center; /* Horizontally center */
-  align-items: center;     /* Vertically center */
-
-  /* Set a minimum height, e.g., to fill the screen */
-  /* 80vh means 80% of the viewport height, leaving space for headers/footers */
-  min-height: 80vh; 
-  
-  /* Give it some padding if needed */
-  padding: 40px 0; 
-  width: 100%;
-}
 
 /* Booking Card (The white box) */
 .booking-container {
@@ -720,7 +707,6 @@ body {
   box-sizing: border-box;
   margin-left: auto;
   margin-right: auto;
-  margin-top: 50px;
 }
 
 /* Subtitle text */
