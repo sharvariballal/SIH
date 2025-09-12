@@ -329,15 +329,146 @@ body {
 ========================= */
 .journal {
   padding: 3rem 0;
-  margin-top: 50px;
+  margin-top: 30px;
+}
+
+#app-container {
+  padding: 20px;
+}
+
+main#content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 40px; /* Adds space between the journal and other wellness sections */
+}
+
+/* A main wrapper for layout, so your component and the entries list are grouped */
+.journal-wrapper {
+  width: 100%;
+  max-width: 600px;
+}
+
+/* --- JOURNAL COMPONENT STYLES --- */
+.journal .container {
+  background: var(--card-background);
+  border-radius: 20px;
+  padding: 30px 40px;
+  box-shadow: 0 10px 30px var(--shadow-color);
+  text-align: center;
+transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.journal .container:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 40px var(--shadow-color);
+}
+
+.journal h2 {
+  font-size: 2rem;
+  font-weight: 600;
+  margin-top: 0;
+  margin-bottom: 10px;
+  color: var(--text-color);
+}
+
+.journal p {
+  color: var(--subtle-text-color);
+  margin-bottom: 25px;
+  font-size: 1.1rem;
 }
 
 .journal textarea {
   width: 100%;
-  min-height: 200px;
-  padding: 1rem;
-  border: 1px solid #ccc;
-  border-radius: 0.5rem;
+  min-height: 150px;
+  border: 2px solid #d4e7f5;
+  border-radius: 15px;
+  padding: 15px;
+font-family: var(--font-family);
+  font-size: 1rem;
+  resize: vertical;
+  margin-bottom: 20px; 
+  box-sizing: border-box;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.journal textarea::placeholder {
+  color: #b0bec5;
+}
+
+.journal textarea:focus {
+  outline: none;
+  border-color: var(--primary-accent);
+  box-shadow: 0 0 0 4px rgba(167, 199, 231, 0.4);
+}
+
+.journal .btn {
+  background: linear-gradient(
+    45deg,
+    var(--primary-accent),
+    var(--secondary-accent)
+  );
+  color: rgb(17, 20, 21);
+  padding: 15px 30px;
+  border: none;
+  border-radius: 50px;
+font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  text-align: center;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  letter-spacing: 0.5px;
+}
+
+.journal .btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 7px 20px rgba(0, 0, 0, 0.15);
+}
+
+.journal .btn:active {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+}
+
+/* --- SAVED ENTRIES SECTION --- */
+#journal-entries {
+  margin-top: 40px;
+}
+
+.entry {
+  background: var(--card-background);
+  border-radius: 15px;
+  padding: 20px;
+margin-bottom: 20px;
+  box-shadow: 0 5px 15px var(--shadow-color);
+  text-align: left;
+  opacity: 0;
+  animation: fadeIn 0.5s ease forwards;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.entry .entry-date {
+  font-weight: 600;
+  color: var(--primary-accent);
+  margin-bottom: 10px;
+  font-size: 0.9rem;
+}
+
+.entry .entry-text {
+  color: var(--subtle-text-color);
+  white-space: pre-wrap;
+  line-height: 1.6;
 }
 
 /* =========================

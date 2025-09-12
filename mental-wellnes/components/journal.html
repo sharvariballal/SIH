@@ -1,8 +1,21 @@
 <section class="journal">
-  <div class="container">
-    <h2>Mood Journal 📖</h2>
-    <p>Write down how you feel today:</p>
-    <textarea placeholder="Dear Journal..."></textarea>
-    <button class="btn">Save Entry</button>
-  </div>
+  <main id="content">
+  <!-- Journal component HTML placed directly inside the main content area -->
+  <div class="journal-wrapper">
+    <section class="journal">
+      <div class="container">
+        <h2>Mood Journal 📖</h2>
+        <p>Write down how you feel today:</p>
+        <textarea
+          id="journal-textarea"
+          placeholder="Dear Journal..."
+        ></textarea>
+        <button id="save-btn" class="btn">Save Entry</button>
+      </div>
+    </section>
+    <!-- This section will be populated with saved entries by journal.js -->
+    <section id="journal-entries"></section>
+    <script src="js/journal.js"></script>
+  </div>
+</main>
 </section>
