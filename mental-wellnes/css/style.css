@@ -304,7 +304,6 @@ body {
 ========================= */
 .ai-chat {
   padding: 3rem 0;
-  margin-top: 50px;
 }
 
 .chat-box {
@@ -315,6 +314,7 @@ body {
   height: 300px;
   overflow-y: auto;
   margin-bottom: 1rem;
+  margin-top: 50px;
 }
 
 .ai-chat input {
