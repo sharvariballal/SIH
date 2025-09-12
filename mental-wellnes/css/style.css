@@ -1,901 +1,486 @@
+
+/* =====================================
+   Global Design Tokens (CSS Variables)
+   ===================================== */
+:root {
+  --font-sans: "Poppins", "Segoe UI", system-ui, -apple-system, sans-serif;
+  --font-headings: "Montserrat", "Poppins", "Segoe UI", system-ui, sans-serif;
+
+  --primary: #2563eb; /* blue */
+  --primary-600: #1d4ed8;
+  --secondary: #22c55e; /* green */
+  --accent: #059669;
+
+  --bg: #f3f9f7; /* soft neutral */
+  --bg-alt: #e6f4ea; /* soft green tint */
+  --surface: #ffffff;
+  --surface-muted: #f7fafc;
+
+  --text: #222;
+  --text-muted: #5b6b76;
+  --border: #dbe3ea;
+
+  --card-radius: 16px;
+  --btn-radius: 10px;
+  --chip-radius: 50px;
+
+  --shadow-sm: 0 1px 3px rgba(16, 24, 40, 0.08);
+  --shadow-md: 0 6px 18px rgba(16, 24, 40, 0.10);
+  --shadow-lg: 0 12px 32px rgba(16, 24, 40, 0.12);
+
+  --container-max: 1200px;
+  --nav-height: 64px;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #0b1220;
+    --bg-alt: #0f162a;
+    --surface: #121a2d;
+    --surface-muted: #0d1426;
+    --text: #e7eef7;
+    --text-muted: #9bb0c8;
+    --border: #1f2a44;
+    --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.5);
+    --shadow-md: 0 6px 18px rgba(0, 0, 0, 0.55);
+    --shadow-lg: 0 12px 32px rgba(0, 0, 0, 0.6);
+  }
+}
+
 /* =========================
-   Base Styles
-========================= */
+   A11y + Reset
+   ========================= */
+* { box-sizing: border-box; }
+*::before,*::after { box-sizing: inherit; }
+html { scroll-behavior: smooth; }
+html, body { height: 100%; }
+
 body {
-  margin-top: 60px;
-  margin: 30px;
-  font-family: "Poppins", sans-serif;
-  background: #b3d9ff;
-  color: #333;
-  justify-content: center;
-  align-items: center;
-}
-
-h1,
-h2,
-h3 {
-  font-family: "Montserrat", sans-serif;
-  margin-bottom: 20px;
-}
-
-.container {
-  width: 90%;
-  max-width: 1100px;
-  margin-left: 20px;
-  margin-right: 20px;
-}
-
-/* =========================
-   Navbar
-========================= */
-/* Universal Reset - This is good */
-* {
   margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-/* Apply a base font to the entire page */
-body {
-  font-family: 'Segoe UI', sans-serif;
-  /* IMPORTANT: Add padding to prevent content from hiding under the fixed navbar */
-  /* You may need to adjust this value based on the final height of your navbar */
-  padding-top: 80px;
-}
-
-/* --- Navbar Styling --- */
-
-/* STEP 1: Make the main navbar a full-width, fixed bar */
-.navbar {
-  width: 100%; /* Make it span the full width */
-  position: fixed; /* Keep it at the top when scrolling */
-  top: 0;
-  left: 0;
-  background-color: rgba(255, 255, 255, 0.2);
-  backdrop-filter: blur(10px); /* Adds a nice frosted glass effect */
-  z-index: 1000; /* Ensures it stays on top of other content */
-}
-
-/* STEP 2: Use the inner container to set the width and center the content */
-.navbar .container {
-  width: 90%; /* Control the content width */
-  max-width: 1200px; /* Set a max-width for very large screens */
-  margin: 0 auto; /* This is the key to centering the container */
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 0.75rem 0; /* Apply padding here instead of the parent */
-}
-
-.nav-logo {
-  font-size: 1.5rem;
-  font-weight: 700;
-  color: #2563eb;
-  text-decoration: none;
-  
-}
-
-.nav-menu {
-  list-style: none;
-  display: flex;
-  gap: 1.25rem;
-  align-items: center;
-  transition: all 0.3s ease-in-out;
-}
-
-.nav-menu a {
-  text-decoration: none;
-  color: #333;
-  font-weight: 500;
-  transition: color 0.3s ease;
-}
-
-.nav-menu a:hover {
-  color: #2563eb;
-}
-
-.signup-btn {
-  padding: 0.4rem 0.9rem;
-  border: 1px solid #2563eb;
-  border-radius: 6px;
-  background-color: transparent;
-  color: #2563eb;
-  transition: all 0.3s ease;
-}
-
-.signup-btn:hover {
-  background-color: #2563eb;
-  color: #fff;
-}
-
-/* --- Hamburger Menu & Responsive Styles --- */
-
-.menu-toggle {
-  display: none; /* Hidden on desktop */
-  flex-direction: column;
-  cursor: pointer;
-}
-
-.menu-toggle .bar {
-  height: 3px;
-  width: 25px;
-  background: #333;
-  margin: 4px 0;
-  border-radius: 2px;
-  transition: all 0.3s ease-in-out;
-}
-
-/* Media query for mobile devices */
-@media (max-width: 900px) {
-  .menu-toggle {
-    display: flex; /* Show the hamburger icon */
-  }
-
-  .nav-menu {
-    display: flex;
-    flex-direction: column;
-    position: absolute;
-    top: 100%; /* Position it right below the header */
-    left: 0;
-    width: 100%; /* Make the dropdown menu full width */
-    background: #e6f4ea;
-    overflow: hidden;
-    /* Use max-height for a smooth slide-down transition */
-    max-height: 0;
-    transition: max-height 0.4s ease-in-out, padding 0.4s ease-in-out;
-  }
-
-  /* When the menu is active, expand it */
-  .nav-menu.active {
-    max-height: 500px; /* A height large enough to show all items */
-    padding: 1rem 0;
-  }
-
-  .nav-menu li {
-    text-align: center;
-    padding: 0.6rem 0;
-  }
-}
-/* =========================
-   Hero Section
-========================= */
-.hero {
-  background: linear-gradient(120deg, #e0f7fa, #e6f4ea);
-  padding: 4rem 1rem;
-  text-align: center;
-  border-radius: 1rem;
-  margin: 2rem 0;
-  margin-top: 50px;
-}
-
-.hero h1 {
-  font-size: 2.5rem;
-  margin-bottom: 1rem;
-}
-
-.green-text {
-  color: #22c55e;
-}
-
-.blue-text {
-  color: #2563eb;
-}
-
-.hero p {
-  font-size: 1.2rem;
-  max-width: 700px;
-  margin: auto;
-  margin-bottom: 1.5rem;
-}
-
-.hero.btn {
-  background-color: #059669; /* Soft green */
-  color: white;
-  font-size: 16px;
-  font-weight: 600;
-  padding: 12px 28px;
-  border: none;
-  border-radius: 50px; /* Makes it fully rounded */
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-.hero.button:hover {
-  background-color: #a4e0eb; /* Darker green on hover */
-  transform: scale(1.05); /* Slight zoom effect */
-}
-
-.hero.btn:hover {
-  background: #1d4ed8;
-}
-
-/* =========================
-   Features Section
-========================= */
-.features-section {
-  margin-top: 60px;
-  padding: 3rem 0;
-  text-align: center;
-  margin-top: 50px;
-}
-
-.features-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 1.5rem;
-  /* ADD these two lines for horizontal centering */
-  width: 90%; /* Or a fixed value like max-width: 1200px; */
-  margin: 0 auto; /* Centers the grid on the page */
-}
-/* For screens smaller than 768px (like tablets and phones) */
-@media (max-width: 768px) {
-  .features-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-/* For screens smaller than 480px (like small phones) */
-@media (max-width: 480px) {
-  .features-grid {
-    grid-template-columns: 1fr; /* Stack them in a single column */
-  }
-}
-.feature-card {
-  background: #fff;
-  border: 1px solid #ddd;
-  padding: 1.5rem;
-  border-radius: 1rem;
-  text-align: center;
-  cursor: pointer;
-  transition: 0.3s;
-}
-
-.feature-card:hover {
-  transform: translateY(-5px);
-  border-color: #2563eb;
-}
-
-.feature-card .icon {
-  font-size: 2rem;
-  margin-bottom: 0.5rem;
-}
-
-/* =========================
-   About Page
-========================= */
-.about {
-  padding: 3rem 0;
-  text-align: center;
-  margin-top: 50px;
-}
-
-.about p {
-  max-width: 700px;
-  margin: auto;
-  font-size: 1.1rem;
+  padding: var(--nav-height) 0 0; /* space for fixed navbar */
+  font-family: var(--font-sans);
+  background: var(--bg);
+  color: var(--text);
   line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+img,svg,video,canvas { display: block; max-width: 100%; }
+input,button,textarea,select { font: inherit; }
+
+:focus-visible {
+  outline: 3px solid var(--primary);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }
 
 /* =========================
-   Login Page
-========================= */
-.login {
-  padding: 3rem 0;
-  text-align: center;
-  margin-top: 50px;
+   Utility Classes
+   ========================= */
+.container {
+  width: min(100% - 2rem, var(--container-max));
+  margin-inline: auto;
+}
+.hidden { display: none !important; }
+.sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
+h1,h2,h3 { font-family: var(--font-headings); margin: 0 0 0.75rem; }
+
+
+/* ======================================================
+   Navbar Component (Integrated with Global Variables)
+   ====================================================== */
+.navbar {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  height: var(--nav-height);
+  background: rgba(243, 249, 247, 0.7); /* From --bg */
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+  box-shadow: var(--shadow-sm);
+  z-index: 1000;
+  transition: background 0.3s ease, border-color 0.3s ease;
 }
 
-.login form {
-  max-width: 400px;
-  margin: auto;
+@media (prefers-color-scheme: dark) {
+  .navbar {
+    background: rgba(11, 18, 32, 0.7); /* From --bg */
+  }
+}
+
+.navbar .container {
+  height: 100%;
   display: flex;
-  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
   gap: 1rem;
 }
 
-.login input {
-  padding: 0.8rem;
-  border: 1px solid #ccc;
-  border-radius: 0.5rem;
+.nav-logo {
+  font-family: var(--font-headings);
+  font-size: 1.6rem;
+  font-weight: 700;
+  text-decoration: none;
+  background: linear-gradient(45deg, var(--primary), var(--secondary));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  letter-spacing: -0.5px;
 }
 
-/* =========================
-   AI Chat Page
-========================= */
-.ai-chat {
-  padding: 3rem 0;
-}
-
-.chat-box {
-  background: #fff;
-  border: 1px solid #ddd;
-  padding: 1rem;
-  border-radius: 1rem;
-  height: 300px;
-  overflow-y: auto;
-  margin-bottom: 1rem;
-  margin-top: 50px;
-}
-
-.ai-chat input {
-  width: 100%;
-  padding: 0.8rem;
-  border: 1px solid #ccc;
-  border-radius: 0.5rem;
-}
-
-/* =========================
-   Journal Page
-========================= */
-.journal {
-  padding: 3rem 0;
-  margin-top: 30px;
-}
-
-#app-container {
-  padding: 20px;
-}
-
-main#content {
+.nav-menu {
   display: flex;
-  flex-direction: column;
   align-items: center;
-  gap: 40px; /* Adds space between the journal and other wellness sections */
+  gap: 1rem;
 }
 
-/* A main wrapper for layout, so your component and the entries list are grouped */
-.journal-wrapper {
-  width: 100%;
-  max-width: 600px;
+.nav-list {
+  display: flex;
+  list-style: none;
+  margin: 0; padding: 0;
+  align-items: center;
+  gap: 1.25rem;
 }
 
-/* --- JOURNAL COMPONENT STYLES --- */
-.journal .container {
-  background: var(--card-background);
-  border-radius: 20px;
-  padding: 30px 40px;
-  box-shadow: 0 10px 30px var(--shadow-color);
-  text-align: center;
-transition: transform 0.3s ease, box-shadow 0.3s ease;
+.nav-link {
+  position: relative;
+  text-decoration: none;
+  color: var(--text-muted);
+  font-weight: 500;
+  font-size: 0.95rem;
+  padding: 0.25rem 0.1rem;
+  transition: color 0.2s ease;
 }
 
-.journal .container:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 15px 40px var(--shadow-color);
+.nav-link::after {
+  content: "";
+  position: absolute; left: 0; right: 0; bottom: -4px;
+  height: 2px;
+  background: linear-gradient(90deg, var(--primary), var(--secondary));
+  transform: scaleX(0);
+  transform-origin: center;
+  transition: transform 0.25s ease;
+  border-radius: 2px;
 }
 
-.journal h2 {
-  font-size: 2rem;
+.nav-link:hover,
+.nav-link:focus-visible {
+  color: var(--text);
+}
+
+.nav-link:hover::after,
+.nav-link:focus-visible::after {
+  transform: scaleX(1);
+}
+
+.nav-link.active {
+  color: var(--primary);
   font-weight: 600;
-  margin-top: 0;
-  margin-bottom: 10px;
-  color: var(--text-color);
 }
+.nav-link.active::after { transform: scaleX(1); }
 
-.journal p {
-  color: var(--subtle-text-color);
-  margin-bottom: 25px;
-  font-size: 1.1rem;
-}
+.nav-actions { display: flex; align-items: center; gap: 0.5rem; }
 
-.journal textarea {
-  width: 100%;
-  min-height: 150px;
-  border: 2px solid #d4e7f5;
-  border-radius: 15px;
-  padding: 15px;
-font-family: var(--font-family);
-  font-size: 1rem;
-  resize: vertical;
-  margin-bottom: 20px; 
-  box-sizing: border-box;
-  transition: border-color 0.3s ease, box-shadow 0.3s ease;
-}
-
-.journal textarea::placeholder {
-  color: #b0bec5;
-}
-
-.journal textarea:focus {
-  outline: none;
-  border-color: var(--primary-accent);
-  box-shadow: 0 0 0 4px rgba(167, 199, 231, 0.4);
-}
-
-.journal .btn {
-  background: linear-gradient(
-    45deg,
-    var(--primary-accent),
-    var(--secondary-accent)
-  );
-  color: rgb(17, 20, 21);
-  padding: 15px 30px;
-  border: none;
-  border-radius: 50px;
-font-weight: 600;
-  font-size: 1rem;
-  cursor: pointer;
-  text-align: center;
-  transition: all 0.3s ease;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-  letter-spacing: 0.5px;
-}
-
-.journal .btn:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 7px 20px rgba(0, 0, 0, 0.15);
-}
-
-.journal .btn:active {
-  transform: translateY(-1px);
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
-}
-
-/* --- SAVED ENTRIES SECTION --- */
-#journal-entries {
-  margin-top: 40px;
-}
-
-.entry {
-  background: var(--card-background);
-  border-radius: 15px;
-  padding: 20px;
-margin-bottom: 20px;
-  box-shadow: 0 5px 15px var(--shadow-color);
-  text-align: left;
-  opacity: 0;
-  animation: fadeIn 0.5s ease forwards;
-}
-
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(10px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-.entry .entry-date {
-  font-weight: 600;
-  color: var(--primary-accent);
-  margin-bottom: 10px;
+.login-btn, .signup-btn {
+  padding: 0.5rem 1rem;
+  border: 1px solid var(--border);
+  border-radius: var(--btn-radius);
+  font-weight: 500;
   font-size: 0.9rem;
-}
-
-.entry .entry-text {
-  color: var(--subtle-text-color);
-  white-space: pre-wrap;
-  line-height: 1.6;
-}
-
-/* =========================
-   Meditation Page
-========================= */
-.meditation {
-  padding: 3rem 0;
-  text-align: center;
-  margin-top: 50px;
-}
-
-.meditation button {
-  margin-top: 1rem;
-}
-
-/* =========================
-   Dashboard Page
-========================= */
-.dashboard {
-  padding: 3rem 0;
-  margin-top: 50px;
-}
-
-.dashboard canvas {
-  max-width: 600px;
-  margin: auto;
-  display: block;
-}
-
-/* =========================
-   Resources Page
-========================= */
-.resources {
-  padding: 3rem 3rem;
-  margin-top: 50px;
-}
-
-.resources ul {
-  max-width: 600px;
-  margin: auto;
-  list-style: square;
-  line-height: 1.8;
-}
-
-/* =========================
-   Community Page
-========================= */
-.community {
-  padding: 3rem 0;
-  margin-top: 50px;
-}
-
-.community.body {
-  font-family: 'Segoe UI', sans-serif;
-  background-color: #e6f0ff; /* pastel blue background */
-  color: #333;
-  margin: 0;
-  padding: 0;
-}
-
-.community.container {
-  width: 80%;
-  margin: 30px auto;
-  background: #ffffff;
-  padding: 25px;
-  border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-}
-
-.community.h2 {
-  color: #2a5d9f;
-  margin-bottom: 15px;
-}
-
-.community.post {
-  background: #f0f6ff;
-  padding: 12px;
-  margin: 10px 0;
-  border-radius: 8px;
-  border-left: 4px solid #2a5d9f;
-}
-
-.community.textarea, input {
-  width: 100%;
-  padding: 10px;
-  margin: 8px 0;
-  border-radius: 8px;
-  border: 1px solid #ccc;
-  font-size: 14px;
-}
-
-.community.button, .btn {
-  background: #2a5d9f;
-  color: white;
-  border: none;
-  padding: 10px 15px;
-  border-radius: 8px;
+  text-decoration: none;
+  transition: all 0.2s ease;
   cursor: pointer;
-  transition: background 0.3s ease;
 }
 
-.community.button:hover, .btn:hover {
-  background: #204879;
+.login-btn {
+  color: var(--text);
+  background-color: transparent;
+}
+.login-btn:hover, .login-btn:focus-visible { background-color: var(--surface-muted); }
+
+.signup-btn {
+  color: #fff;
+  background: var(--primary);
+  border-color: var(--primary);
+  box-shadow: var(--shadow-sm);
+}
+.signup-btn:hover, .signup-btn:focus-visible {
+  background: var(--primary-600);
+  border-color: var(--primary-600);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
 }
 
-.community.ul {
-  list-style: none;
-  padding-left: 0;
+.menu-toggle {
+  display: none;
+  flex-direction: column;
+  justify-content: space-around;
+  width: 28px; height: 24px;
+  background: transparent; border: none;
+  cursor: pointer; padding: 0; z-index: 10;
 }
+.menu-toggle .bar {
+  height: 3px; width: 100%;
+  background: var(--text);
+  border-radius: 10px;
+  transition: all 0.3s ease-in-out;
+}
+.menu-toggle.active .bar:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+.menu-toggle.active .bar:nth-child(2) { opacity: 0; }
+.menu-toggle.active .bar:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
 
-.community.ul li {
-  background: #f9fbff;
-  padding: 10px;
-  margin: 6px 0;
-  border-radius: 8px;
-  border: 1px solid #d6e4ff;
+@media (max-width: 900px) {
+  .menu-toggle { display: flex; }
+
+  .nav-menu {
+    position: absolute;
+    top: var(--nav-height);
+    left: 0; right: 0;
+    flex-direction: column;
+    align-items: stretch;
+    background: var(--surface);
+    max-height: 0;
+    opacity: 0;
+    overflow: hidden;
+    visibility: hidden;
+    padding: 0 1rem;
+    border-bottom: 1px solid var(--border);
+    box-shadow: var(--shadow-md);
+    transition: all 0.4s ease;
+  }
+
+  .nav-menu.active {
+    max-height: 80vh;
+    opacity: 1;
+    visibility: visible;
+    padding: 1.5rem 1rem;
+  }
+
+  .nav-list { flex-direction: column; align-items: center; width: 100%; gap: 0.5rem; }
+  .nav-list li { width: 100%; }
+  .nav-link { display: block; width: 100%; text-align: center; padding: 0.8rem 1rem; border-radius: 8px; }
+  .nav-link:hover { background: var(--surface-muted); }
+  .nav-link::after { display: none; }
+
+  .nav-actions {
+    flex-direction: column;
+    gap: 1rem;
+    margin-top: 1.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border);
+  }
+  .login-btn, .signup-btn { width: 100%; text-align: center; padding: 0.75rem 1rem; }
 }
 
 /* =========================
-   Helpline Page
-========================= */
-.helpline {
-  padding: 3rem 0;
+   Hero Section
+   ========================= */
+.hero {
+  background: linear-gradient(120deg, #e0f7fa, #e6f4ea);
+  padding: clamp(2.5rem, 3vw, 4rem) 1rem;
   text-align: center;
-  margin-top: 50px;
+  border-radius: 1rem;
+  margin: 2rem 0;
 }
+.hero h1 { font-size: clamp(2rem, 3vw, 2.75rem); margin-bottom: 0.75rem; }
+.hero p { font-size: clamp(1rem, 1.5vw, 1.15rem); max-width: 46rem; margin: 0 auto 1.25rem; color: var(--text-muted); }
+.green-text { color: var(--secondary); }
+.blue-text { color: var(--primary); }
 
-.helpline ul {
-  list-style: none;
-  padding: 0;
+.hero .btn {
+  background: var(--accent);
+  color: #fff;
+  font-weight: 600;
+  padding: 12px 28px;
+  border: none;
+  border-radius: var(--chip-radius);
+  cursor: pointer;
+  transition: transform 0.2s ease, background 0.2s ease;
 }
+.hero .btn:hover { background: var(--primary-600); transform: translateY(-1px); }
 
-.helpline li {
-  background: #fff;
-  border: 1px solid #ddd;
-  padding: 0.8rem;
-  margin: 0.5rem auto;
-  border-radius: 0.5rem;
-  max-width: 400px;
+/* =========================
+   Features Section
+   ========================= */
+.features-section { padding: 3rem 0; text-align: center; }
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.25rem;
+  width: min(90%, var(--container-max));
+  margin: 0 auto;
 }
+@media (max-width: 900px) { .features-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 520px) { .features-grid { grid-template-columns: 1fr; } }
+
+.feature-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  padding: 1.25rem;
+  border-radius: var(--card-radius);
+  text-align: center;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+  box-shadow: var(--shadow-sm);
+}
+.feature-card:hover { transform: translateY(-4px); border-color: var(--primary); box-shadow: var(--shadow-md); }
+.feature-card .icon { font-size: 2rem; margin-bottom: 0.35rem; }
+
+/* =========================
+   About
+   ========================= */
+.about { padding: 3rem 0; text-align: center; }
+.about p { max-width: 700px; margin: 0 auto; font-size: 1.05rem; line-height: 1.7; color: var(--text-muted); }
+
+/* =========================
+   Login
+   ========================= */
+.login { padding: 3rem 0; text-align: center; }
+.login form { max-width: 420px; margin: 0 auto; display: flex; flex-direction: column; gap: 1rem; background: var(--surface); border: 1px solid var(--border); padding: 1.25rem; border-radius: var(--card-radius); box-shadow: var(--shadow-sm); }
+.login input { padding: 0.8rem; border: 1px solid var(--border); border-radius: 10px; background: var(--surface-muted); }
+
+/* =========================
+   AI Chat
+   ========================= */
+.ai-chat { padding: 3rem 0; }
+.chat-box { background: var(--surface); border: 1px solid var(--border); padding: 1rem; border-radius: var(--card-radius); height: 320px; overflow-y: auto; margin-bottom: 1rem; box-shadow: var(--shadow-sm); }
+.ai-chat input { width: 100%; padding: 0.8rem; border: 1px solid var(--border); border-radius: 10px; }
+
+/* =========================
+   Journal
+   ========================= */
+.journal { padding: 3rem 0; }
+#app-container { padding: 20px; }
+main#content { display: flex; flex-direction: column; align-items: center; gap: 40px; }
+.journal-wrapper { width: 100%; max-width: 680px; }
+
+/* Card */
+.journal .container { background: var(--surface); border-radius: 20px; padding: 30px 40px; box-shadow: var(--shadow-md); text-align: center; transition: transform 0.3s ease, box-shadow 0.3s ease; border: 1px solid var(--border); }
+.journal .container:hover { transform: translateY(-5px); box-shadow: var(--shadow-lg); }
+
+.journal h2 { font-size: 2rem; font-weight: 700; margin: 0 0 10px; color: var(--text); }
+.journal p { color: var(--text-muted); margin-bottom: 20px; font-size: 1.1rem; }
+
+.journal textarea { width: 100%; min-height: 150px; border: 2px solid #d4e7f5; border-radius: 15px; padding: 15px; font-family: var(--font-sans); font-size: 1rem; resize: vertical; margin-bottom: 20px; transition: border-color 0.25s ease, box-shadow 0.25s ease; background: var(--surface-muted); color: var(--text); }
+.journal textarea::placeholder { color: #9fb1bf; }
+.journal textarea:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.25); }
+
+.journal .btn { background: linear-gradient(45deg, var(--primary), var(--secondary)); color: #0e1113; padding: 14px 26px; border: none; border-radius: 999px; font-weight: 700; font-size: 1rem; cursor: pointer; text-align: center; transition: transform 0.2s ease, box-shadow 0.2s ease; box-shadow: var(--shadow-sm); }
+.journal .btn:hover { transform: translateY(-2px); box-shadow: var(--shadow-md); }
+.journal .btn:active { transform: translateY(0); box-shadow: var(--shadow-sm); }
+
+#journal-entries { margin-top: 32px; }
+.entry { background: var(--surface); border-radius: 15px; padding: 18px; margin-bottom: 16px; box-shadow: var(--shadow-sm); text-align: left; opacity: 0; animation: fadeIn 0.5s ease forwards; border: 1px solid var(--border); }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+.entry .entry-date { font-weight: 700; color: var(--primary); margin-bottom: 8px; font-size: 0.95rem; }
+.entry .entry-text { color: var(--text-muted); white-space: pre-wrap; line-height: 1.6; }
+
+/* =========================
+   Meditation
+   ========================= */
+.meditation { padding: 3rem 0; text-align: center; }
+.meditation button { margin-top: 1rem; }
+
+/* =========================
+   Dashboard
+   ========================= */
+.dashboard { padding: 3rem 0; }
+.dashboard canvas { max-width: 640px; margin: 0 auto; display: block; }
+
+/* =========================
+   Resources
+   ========================= */
+.resources { padding: 50px 20px; background: linear-gradient(135deg, #d0f0e0, var(--bg)); }
+.resources h2 { text-align: center; font-size: 2rem; margin-bottom: 30px; color: #2d6a4f; }
+.resource-box { background: var(--surface); border-radius: 12px; padding: 25px; margin-bottom: 30px; box-shadow: var(--shadow-sm); border: 1px solid var(--border); }
+.resource-box h3 { margin-bottom: 12px; font-size: 1.35rem; color: #40916c; }
+.resource-box ul { list-style: none; padding-left: 0; }
+.resource-box ul li { margin: 10px 0; font-size: 1rem; }
+.resource-box ul li a { text-decoration: none; color: #1b4332; font-weight: 600; transition: color 0.2s ease; }
+.resource-box ul li a:hover { color: #2d6a4f; text-decoration: underline; }
+.video-list a { color: #0a66c2; }
+.video-list a:hover { color: #084d95; }
+
+/* =========================
+   Community
+   ========================= */
+/* Make the entire community section the white card box so it spans to Submit Story */
+.community { padding: 2rem; background: var(--surface); border: 1px solid var(--border); border-radius: 16px; box-shadow: var(--shadow-sm); width: min(100% - 2rem, var(--container-max)); margin: 2rem auto 0; }
+/* Remove the inner card styling to avoid a box-inside-a-box */
+.community .container { background: transparent; padding: 0; border-radius: 0; box-shadow: none; border: 0; }
+.community h2 { color: #2a5d9f; margin-bottom: 12px; }
+.community .post { background: #f0f6ff; padding: 12px; margin: 10px 0; border-radius: 10px; border-left: 4px solid #2a5d9f; }
+.community textarea,
+.community input { width: 100%; padding: 10px; margin: 8px 0; border-radius: 8px; border: 1px solid var(--border); font-size: 14px; background: var(--surface-muted); color: var(--text); }
+.community button,
+.btn { background: #2a5d9f; color: #fff; border: none; padding: 10px 15px; border-radius: 8px; cursor: pointer; transition: background 0.25s ease, transform 0.2s ease; }
+.community button:hover,
+.btn:hover { background: #204879; transform: translateY(-1px); }
+.community ul { list-style: none; padding-left: 0; }
+.community ul li { background: #f9fbff; padding: 10px; margin: 6px 0; border-radius: 8px; border: 1px solid #d6e4ff; }
+
+/* =========================
+   Helpline
+   ========================= */
+.helpline { padding: 3rem 0; text-align: center; }
+.helpline ul { list-style: none; padding: 0; }
+.helpline li { background: var(--surface); border: 1px solid var(--border); padding: 0.8rem; margin: 0.5rem auto; border-radius: 0.5rem; max-width: 420px; box-shadow: var(--shadow-sm); }
 
 /* =========================
    Footer
-========================= */
-footer {
-  background: #e6f4ea;
-  padding: 1rem;
-  text-align: center;
-  font-size: 0.9rem;
-}
-
+   ========================= */
+footer { background: var(--bg-alt); padding: 1rem; text-align: center; font-size: 0.9rem; border-top: 1px solid var(--border); }
 
 /* ===============================
-   😊 Mood Tracker 
+   Mood Tracker
    =============================== */
+.mood-btn { transition: transform 0.2s ease, background 0.2s ease; padding: 0.35rem 0.7rem; border-radius: 10px; background: rgba(255,255,255,0.7); box-shadow: var(--shadow-sm); }
+.mood-btn:hover { transform: scale(1.08); background: #e0f7f1; }
 
+.chart-container { max-height: 250px; position: relative; }
+#mood-details-wrapper { display: none; opacity: 0; transition: opacity 0.4s ease; }
+#mood-details-wrapper.is-visible { display: block; opacity: 1; }
 
-/* Smaller buttons */
-.mood-btn {
-  transition: transform 0.2s ease, background 0.2s ease;
-  padding: 0.3rem 0.7rem;
-  border-radius: 10px;
-  background: #ffffffaa;
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
-}
-
-.mood-btn:hover {
-  transform: scale(1.15);
-  background: #e0f7f1;
-}
-
-/* ✨ NEW: Styles for collapsible section & smaller charts ✨ */
-
-/* This is the key to making the charts smaller */
-.chart-container {
-  max-height: 250px; /* Force the chart height to be smaller */
-  position: relative;
-}
-
-/* The wrapper is hidden by default */
-#mood-details-wrapper {
-  display: none;
-  opacity: 0;
-  transition: opacity 0.5s ease;
-}
-
-/* When visible, it fades in */
-#mood-details-wrapper.is-visible {
-  display: block;
-  opacity: 1;
-}
+/* Wellness Tip */
+#wellness-tip { transition: background-color 0.25s ease; }
 
 /* ===============================
-   ✨ Wellness Tip Styles
+   Wellness Grid
    =============================== */
-#wellness-tip {
-  transition: background-color 0.3s ease;
-}
+.wellness-section { display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: 1fr 1fr; gap: 20px; min-height: 70vh; margin: 30px; }
+.wellness-section .mood-tracker { grid-row: span 2; background: #d1fae5; border-radius: 15px; padding: 20px; box-shadow: var(--shadow-sm); }
+.wellness-section .breathing { background: #bfdbfe; border-radius: 15px; padding: 20px; box-shadow: var(--shadow-sm); }
+.wellness-section .meditation { background: #fbcfe8; border-radius: 15px; padding: 20px; box-shadow: var(--shadow-sm); }
+.wellness-section h2 { margin: 0; font-size: 1.15rem; color: var(--text); }
 
+@media (max-width: 900px) { .wellness-section { grid-template-columns: 1fr; grid-template-rows: auto; } }
 
-
-/* General Page Styling */
-body {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background: #f3f9f7;
-  color: #333;
-  margin: 0;
-  padding: 0;
-}
-
-/* Section Container */
-.resources {
-  padding: 50px 20px;
-  background: linear-gradient(135deg, #d0f0e0, #f3f9f7);
-}
-
-.resources h2 {
-  text-align: center;
-  font-size: 2rem;
-  margin-bottom: 30px;
-  color: #2d6a4f;
-}
-
-/* Resource Cards */
-.resource-box {
-  background: #ffffff;
-  border-radius: 12px;
-  padding: 25px;
-  margin-bottom: 30px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-}
-
-.resource-box h3 {
-  margin-bottom: 15px;
-  font-size: 1.5rem;
-  color: #40916c;
-}
-
-/* Lists */
-.resource-box ul {
-  list-style: none;
-  padding-left: 0;
-}
-
-.resource-box ul li {
-  margin: 10px 0;
-  font-size: 1rem;
-}
-
-.resource-box ul li a {
-  text-decoration: none;
-  color: #1b4332;
-  font-weight: 500;
-  transition: color 0.3s;
-}
-
-.resource-box ul li a:hover {
-  color: #2d6a4f;
-  text-decoration: underline;
-}
-
-/* Video Links */
-.video-list a {
-  color: #0077b6;
-  transition: color 0.3s;
-}
-
-.video-list a:hover {
-  color: #023e8a;
-}
-
-/* === Wellness Section Styling === */
-.wellness-section {
-  display: grid;
-  grid-template-columns: 1fr 1fr; /* left + right */
-  grid-template-rows: 1fr 1fr;    /* breathing + meditation */
-  gap: 20px;
-  height: 110vh; /* adjustable */
-  margin-top: 30px;
-  margin-bottom: 30px;
-  margin-left: 30px;
-  margin-right: 30px;
-}
-
-.wellness-section .mood-tracker {
-  grid-row: span 2; /* take full left height */
-  background: #d1fae5; /* soft green */
-  border-radius: 15px;
-  padding: 20px;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-}
-
-.wellness-section .breathing {
-  background: #bfdbfe; /* soft blue */
-  border-radius: 15px;
-  padding: 20px;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-}
-
-.wellness-section .meditation {
-  background: #fbcfe8; /* soft pink */
-  border-radius: 15px;
-  padding: 20px;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-}
-
-.wellness-section h2 {
-  margin-top: 0;
-  font-size: 20px;
-  color: #333;
-}
-.breathing {
-  text-align:center;
-}
-
-.breathing-circle {
-  width: 60px;
-  height: 60px;
-  margin: 20px auto;
-  border-radius: 50%;
-  background: radial-gradient(circle, #93c5fd, #3b82f6);
-  box-shadow: 0 0 20px rgba(59, 130, 246, 0.6);
-  transition: transform 4s ease-in-out;
-}
-
-#breathingText {
-  font-size: 18px;
-  margin: 10px 0;
-  color: #1e3a8a;
-  font-weight: 500;
-}
-
-#startBreathing {
-  padding: 10px 20px;
-  background: #3b82f6;
-  color: #fff;
-  border: none;
-  border-radius: 25px;
-  font-size: 16px;
-  cursor: pointer;
-  transition: background 0.3s;
-}
-#startBreathing:hover {
-  background: #2563eb;
-}
+.breathing { text-align: center; }
+.breathing-circle { width: 60px; height: 60px; margin: 20px auto; border-radius: 50%; background: radial-gradient(circle, #93c5fd, #3b82f6); box-shadow: 0 0 20px rgba(59, 130, 246, 0.4); transition: transform 4s ease-in-out; }
+#breathingText { font-size: 18px; margin: 10px 0; color: #1e3a8a; font-weight: 600; }
+#startBreathing { padding: 10px 20px; background: #3b82f6; color: #fff; border: none; border-radius: 25px; font-size: 16px; cursor: pointer; transition: background 0.25s ease; }
+#startBreathing:hover { background: #2563eb; }
 
 /* ===============================
-   booking
+   Booking
    =============================== */
+.booking { width: 100%; margin-top: 80px; display: flex; justify-content: center; }
+.booking-container { background: var(--surface); padding: 32px; border-radius: 15px; box-shadow: var(--shadow-md); max-width: 640px; width: 92%; text-align: left; border: 1px solid var(--border); }
+.subtitle { text-align: center; font-size: 1rem; color: var(--text-muted); margin-bottom: 18px; }
 
-   .booking{
-      justify-content: center; /* Horizontally center */
-       /* Vertically center */
-      width: 100%;
-      margin-top: 100px;
-   }
+label { display: block; margin-top: 14px; font-weight: 700; font-size: 1rem; color: #01579b; }
+input, select { width: 100%; padding: 12px 14px; margin-top: 8px; border: 1px solid var(--border); border-radius: 10px; font-size: 1rem; background: var(--surface-muted); color: var(--text); }
 
-/* Booking Card (The white box) */
-.booking-container {
-  background: #fff;
-  padding: 40px; 
-  border-radius: 15px;
-  box-shadow: 0px 6px 20px rgba(0, 0, 0, 0.1);
-  max-width: 600px;
-  width: 90%;
-  text-align: left;
-  box-sizing: border-box;
-  margin-left: auto;
-  margin-right: auto;
-}
+#bookingbtn { margin-top: 22px; width: 100%; padding: 14px; border: none; background: #0288d1; color: #fff; font-size: 1.05rem; font-weight: 700; border-radius: 10px; cursor: pointer; transition: background 0.25s ease, transform 0.2s ease; }
+#bookingbtn:hover { background: #0277bd; transform: translateY(-1px); }
 
-/* Subtitle text */
-.subtitle {
-  text-align: center;
-  font-size: 16px; 
-  color: #555;
-  margin-bottom: 25px;
-}
-
-/* Form field labels */
-label {
-  display: block;
-  margin-top: 15px;
-  font-weight: bold;
-  font-size: 1.1em;
-  color: #01579b;
-}
-
-/* Text inputs and dropdowns */
-input, select {
-  width: 100%;
-  padding: 15px;
-  margin-top: 8px;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  font-size: 16px; 
-  background: #f1faff;
-  box-sizing: border-box;
-}
-
-/* The booking button */
-#bookingbtn {
-  margin-top: 25px;
-  width: 100%;
-  padding: 16px;
-  border: none;
-  background: #0288d1;
-  color: white;
-  font-size: 18px;
-  font-weight: bold;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: 0.3s;
-}
-
-#bookingbtn:hover {
-  background: #0277bd;
-}
-
-/* Confirmation message */
-.confirmation {
-  display: none;
-  margin-top: 20px;
-  padding: 15px;
-  background: #d4edda;
-  color: #155724;
-  border: 1px solid #c3e6cb;
-  border-radius: 8px;
-  text-align: center;
-}
+.confirmation { display: none; margin-top: 16px; padding: 14px; background: #d4edda; color: #155724; border: 1px solid #c3e6cb; border-radius: 10px; text-align: center; }
