@@ -1,0 +1,184 @@
+<!-- Main container for the admin dashboard with padding -->
+<div class="mt-12 p-6 md:p-8 bg-gray-50 min-h-screen font-sans">
+
+    <!-- Header Section -->
+    <div class="flex justify-between items-center">
+        <div>
+            <h1 class="text-3xl font-bold text-gray-900">Admin Dashboard</h1>
+            <p class="mt-1 text-gray-600">Welcome back, Admin! Here's what's happening today.</p>
+        </div>
+        <button class="bg-indigo-600 text-white font-semibold py-2 px-4 rounded-lg shadow-md hover:bg-indigo-700 transition">
+            Create Report
+        </button>
+    </div>
+
+    <!-- Stats Cards Section -->
+    <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4 mt-8">
+        <!-- Card 1: Total Users -->
+        <div class="bg-white p-6 rounded-xl shadow-md">
+            <div class="flex items-center">
+                <div class="bg-indigo-100 p-3 rounded-full">
+                    <svg class="w-6 h-6 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
+                </div>
+                <div class="ml-4">
+                    <p class="text-gray-500">Total Users</p>
+                    <p class="text-2xl font-bold text-gray-900">1,257</p>
+                </div>
+            </div>
+        </div>
+        <!-- Card 2: Active Sessions -->
+        <div class="bg-white p-6 rounded-xl shadow-md">
+            <div class="flex items-center">
+                <div class="bg-green-100 p-3 rounded-full">
+                    <svg class="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                </div>
+                <div class="ml-4">
+                    <p class="text-gray-500">Active Sessions</p>
+                    <p class="text-2xl font-bold text-gray-900">84</p>
+                </div>
+            </div>
+        </div>
+        <!-- Card 3: New Signups (24h) -->
+        <div class="bg-white p-6 rounded-xl shadow-md">
+            <div class="flex items-center">
+                <div class="bg-blue-100 p-3 rounded-full">
+                    <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z"></path></svg>
+                </div>
+                <div class="ml-4">
+                    <p class="text-gray-500">New Signups (24h)</p>
+                    <p class="text-2xl font-bold text-gray-900">23</p>
+                </div>
+            </div>
+        </div>
+        <!-- Card 4: Pending Approvals -->
+        <div class="bg-white p-6 rounded-xl shadow-md">
+            <div class="flex items-center">
+                <div class="bg-yellow-100 p-3 rounded-full">
+                     <svg class="w-6 h-6 text-yellow-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                </div>
+                <div class="ml-4">
+                    <p class="text-gray-500">Pending Approvals</p>
+                    <p class="text-2xl font-bold text-gray-900">5</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content Area -->
+    <div class="mt-8 grid grid-cols-1 lg:grid-cols-3 gap-8">
+        
+        <!-- User Management Table (takes 2/3 of the width on large screens) -->
+        <div class="lg:col-span-2 bg-white p-6 rounded-xl shadow-md">
+            <h2 class="text-xl font-semibold text-gray-800 mb-4">User Management</h2>
+            <div class="overflow-x-auto">
+                <table class="w-full text-left">
+                    <thead class="bg-gray-50">
+                        <tr>
+                            <th class="p-3 font-semibold text-gray-600">Name</th>
+                            <th class="p-3 font-semibold text-gray-600">Role</th>
+                            <th class="p-3 font-semibold text-gray-600">Status</th>
+                            <th class="p-3 font-semibold text-gray-600">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-gray-200">
+                        <!-- Dummy User Row 1 -->
+                        <tr>
+                            <td class="p-3">Aarav Patel</td>
+                            <td class="p-3">Student</td>
+                            <td class="p-3"><span class="bg-green-100 text-green-800 text-xs font-medium px-2.5 py-0.5 rounded-full">Active</span></td>
+                            <td class="p-3"><a href="#" class="text-indigo-600 hover:underline">Edit</a></td>
+                        </tr>
+                        <!-- Dummy User Row 2 -->
+                        <tr>
+                            <td class="p-3">Priya Sharma</td>
+                            <td class="p-3">Counselor</td>
+                            <td class="p-3"><span class="bg-green-100 text-green-800 text-xs font-medium px-2.5 py-0.5 rounded-full">Active</span></td>
+                            <td class="p-3"><a href="#" class="text-indigo-600 hover:underline">Edit</a></td>
+                        </tr>
+                        <!-- Dummy User Row 3 -->
+                        <tr>
+                            <td class="p-3">Rohan Gupta</td>
+                            <td class="p-3">Student</td>
+                            <td class="p-3"><span class="bg-yellow-100 text-yellow-800 text-xs font-medium px-2.5 py-0.5 rounded-full">Pending</span></td>
+                            <td class="p-3"><a href="#" class="text-indigo-600 hover:underline">Approve</a></td>
+                        </tr>
+                        <!-- Dummy User Row 4 -->
+                         <tr>
+                            <td class="p-3">Sunita Singh</td>
+                            <td class="p-3">Admin</td>
+                            <td class="p-3"><span class="bg-green-100 text-green-800 text-xs font-medium px-2.5 py-0.5 rounded-full">Active</span></td>
+                            <td class="p-3"><a href="#" class="text-indigo-600 hover:underline">Edit</a></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Right Sidebar (takes 1/3 of the width on large screens) -->
+        <div class="space-y-8">
+            <!-- User Growth Chart -->
+            <div class="bg-white p-6 rounded-xl shadow-md">
+                 <h2 class="text-xl font-semibold text-gray-800 mb-4">User Growth</h2>
+                 <canvas id="userGrowthChart"></canvas>
+            </div>
+            <!-- Recent Activity -->
+            <div class="bg-white p-6 rounded-xl shadow-md">
+                <h2 class="text-xl font-semibold text-gray-800 mb-4">Recent Activity</h2>
+                <ul class="space-y-4">
+                    <li class="flex items-center">
+                        <div class="bg-blue-100 rounded-full p-2 mr-3">
+                            <svg class="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z"></path></svg>
+                        </div>
+                        <p class="text-sm text-gray-600"><span class="font-semibold">Priya Sharma</span> created a new booking slot.</p>
+                    </li>
+                    <li class="flex items-center">
+                        <div class="bg-green-100 rounded-full p-2 mr-3">
+                            <svg class="w-5 h-5 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                        </div>
+                        <p class="text-sm text-gray-600">System update v2.1 completed successfully.</p>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- This script initializes the chart. It's safe to include it here
+     because this component and its canvas will be in the DOM when the
+     script runs. -->
+<script>
+    // Make sure Chart.js is loaded on the main page.
+    if (typeof Chart !== 'undefined') {
+        const ctx = document.getElementById('userGrowthChart')?.getContext('2d');
+        if (ctx) {
+            new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: ['April', 'May', 'June', 'July', 'August', 'September'],
+                    datasets: [{
+                        label: 'New Users',
+                        data: [65, 59, 80, 81, 96, 115],
+                        fill: false,
+                        borderColor: 'rgb(79, 70, 229)',
+                        tension: 0.1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            display: false
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+        }
+    } else {
+        console.error("Chart.js is not loaded. Cannot create chart.");
+    }
+</script>

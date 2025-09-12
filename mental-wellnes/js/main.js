@@ -57,7 +57,24 @@ function loadPage(page) {
     case "login":
       loadComponent("content", "login.html");
       break;
-    // ... other cases
+    case "ai_chat":
+      loadComponent("content", "ai_chat.html");
+      break;
+    case "booking":
+       loadComponent("content", "booking.html");
+      break;
+    case "journal":
+       loadComponent("content", "journal.html");
+      break;
+    case "meditation":
+      loadComponent("content", "meditation.html");
+      break;
+    case "dashboard":
+      loadComponent("content", "dashboard.html");
+      break;
+    case "resources":
+      loadComponent("content", "resources.html");
+      break;
     case "community":
       loadComponent("content", "community.html");
       break;
@@ -155,17 +172,26 @@ function initializeOnboarding() {
       appContainer.style.display = 'block';
 
       // Load the app with the correct starting page based on the role
-      switch (selectedRole) {
-        case 'student':
-          loadApp("hero"); // Student sees the hero page first
-          break;
-        case 'admin':
-          loadApp("admin-dashboard"); // Admin sees their dashboard
-          break;
-        case 'counselor':
-          loadApp("counselor-dashboard"); // Counselor sees their dashboard
-          break;
-      }
+      // NEW & CORRECTED LOGIC
+// ... inside the roleCards.forEach loop
+switch (selectedRole) {
+    case 'student':
+        // If student, hide the overlay and load the student SPA here
+        onboardingOverlay.style.display = 'none';
+        appContainer.style.display = 'block';
+        loadApp("hero"); // 'loadApp' is your function that loads header/footer/content
+        break;
+
+    case 'admin':
+        // If admin, redirect to the completely separate admin page
+        window.location.href = 'admin.html';
+        break;
+
+    case 'counselor':
+    // Redirect to the completely separate counselor page
+    window.location.href = 'counselor.html';
+    break;
+}
     });
   });
 }
