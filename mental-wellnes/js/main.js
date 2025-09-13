@@ -23,14 +23,28 @@ async function loadComponent(containerId, file) {
 // ===================================================================
 
 function initHeroPageListeners() {
-  // IMPORTANT: Make sure your button in hero.html has this ID
+  // This is the critical part for your button.
   const heroButton = document.getElementById('start-journey-btn');
   if (heroButton) {
     heroButton.addEventListener('click', () => {
-      // Navigate to another page, e.g., 'features'
+      // Navigate to the features page when clicked.
       loadPage('features');
     });
+  } else {
+    console.error("The 'Start Your Journey' button with id 'start-journey-btn' was not found on the hero page.");
   }
+}
+
+function initFeaturesPageListeners() {
+  const featureCards = document.querySelectorAll('.feature-card[data-page]');
+  featureCards.forEach(card => {
+    card.addEventListener('click', () => {
+      const page = card.dataset.page;
+      if (page) {
+        loadPage(page);
+      }
+    });
+  });
 }
 
 // Initializer for the dashboard page (charts, badges, buttons)
@@ -115,6 +129,9 @@ async function loadPage(page) {
       break;
     case "dashboard":
       initDashboardPage();
+      break;
+    case "features":
+      initFeaturesPageListeners(); 
       break;
     case "booking":
       attachBookingFormListener();
@@ -209,5 +226,6 @@ function initializeOnboarding() {
 // ===================================================================
 document.addEventListener("DOMContentLoaded", () => {
   initializeOnboarding();
+  loadApp("hero");
 });
 
