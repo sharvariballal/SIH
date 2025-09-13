@@ -22,11 +22,12 @@ async function loadComponent(containerId, file) {
 // 2. PAGE-SPECIFIC INITIALIZERS
 // ===================================================================
 
-// Initializer for the hero page button
 function initHeroPageListeners() {
+  // IMPORTANT: Make sure your button in hero.html has this ID
   const heroButton = document.getElementById('start-journey-btn');
   if (heroButton) {
     heroButton.addEventListener('click', () => {
+      // Navigate to another page, e.g., 'features'
       loadPage('features');
     });
   }
