@@ -3,6 +3,7 @@
     <h2>Your Wellness Dashboard 📊</h2>
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
 
+
             <!-- Card 1: Overall Wellness Score -->
             <div class="dashboard-card p-6 flex flex-col items-center justify-center text-center lg:col-span-1">
                 <h2 class="text-lg font-semibold text-gray-600 mb-4">Overall Wellness</h2>
@@ -15,7 +16,7 @@
                             fill="none"
                             stroke="currentColor"
                             stroke-width="3" />
-                        <path class="text-blue-500"
+                        <path id="wellness-score-circle" class="text-blue-500"
                             stroke-dasharray="80, 100"
                             d="M18 2.0845
                               a 15.9155 15.9155 0 0 1 0 31.831
@@ -49,10 +50,10 @@
             <div class="dashboard-card p-6 md:col-span-2 lg:col-span-2 flex flex-col justify-center">
                  <h2 class="text-lg font-semibold text-gray-600 mb-4 text-center">Quick Actions</h2>
                  <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                     <button class="w-full bg-blue-500 text-white font-semibold py-3 px-4 rounded-lg hover:bg-blue-600 transition-colors">
+                     <button id="track-mood-btn" class="w-full bg-blue-500 text-white font-semibold py-3 px-4 rounded-lg hover:bg-blue-600 transition-colors">
                          Track Your Mood
                      </button>
-                     <button class="w-full bg-green-500 text-white font-semibold py-3 px-4 rounded-lg hover:bg-green-600 transition-colors">
+                     <button id="take-phq9-btn" class="w-full bg-green-500 text-white font-semibold py-3 px-4 rounded-lg hover:bg-green-600 transition-colors">
                          Take PHQ-9 Test
                      </button>
                  </div>
@@ -89,168 +90,6 @@
 
         </div>
     </div>
-
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-
-            // --- 1. PHQ-9 Chart ---
-            const phq9Ctx = document.getElementById('phq9Chart')?.getContext('2d');
-            if (phq9Ctx) {
-                new Chart(phq9Ctx, {
-                    type: 'line',
-                    data: {
-                        labels: ['May', 'June', 'July', 'Aug', 'Sept'],
-                        datasets: [{
-                            label: 'PHQ-9 Score',
-                            data: [12, 9, 7, 8, 5],
-                            borderColor: '#3B82F6', // Blue-500
-                            backgroundColor: 'rgba(59, 130, 246, 0.1)',
-                            fill: true,
-                            tension: 0.4,
-                            pointBackgroundColor: '#3B82F6',
-                            pointRadius: 5
-                        }]
-                    },
-                    options: {
-                        responsive: true,
-                        scales: {
-                            y: {
-                                beginAtZero: true,
-                                max: 27, // Max score for PHQ-9
-                                title: { display: true, text: 'Score' }
-                            }
-                        },
-                        plugins: {
-                            legend: { display: false }
-                        }
-                    }
-                });
-            }
-
-            // --- 2. Mood Chart ---
-            const moodCtx = document.getElementById('moodChart')?.getContext('2d');
-            if (moodCtx) {
-                new Chart(moodCtx, {
-                    type: 'bar',
-                    data: {
-                        labels: ['Happy', 'Calm', 'Okay', 'Anxious', 'Sad'],
-                        datasets: [{
-                            label: 'Days',
-                            data: [3, 2, 1, 1, 0],
-                            backgroundColor: [
-                                '#10B981', // Emerald-500
-                                '#60A5FA', // Blue-400
-                                '#FBBF24', // Amber-400
-                                '#F87171', // Red-400
-                                '#9CA3AF'  // Gray-400
-                            ],
-                            borderRadius: 6
-                        }]
-                    },
-                    options: {
-                        responsive: true,
-                        indexAxis: 'y',
-                        scales: {
-                            x: {
-                                beginAtZero: true,
-                                title: { display: true, text: 'Number of Days' }
-                            }
-                        },
-                        plugins: {
-                            legend: { display: false }
-                        }
-                    }
-                });
-            }
-            
-            // --- 3. Sleep vs Stress Chart ---
-            const sleepStressCtx = document.getElementById('sleepStressChart')?.getContext('2d');
-            if (sleepStressCtx) {
-                new Chart(sleepStressCtx, {
-                    type: 'bar',
-                    data: {
-                        labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
-                        datasets: [
-                            {
-                                type: 'line',
-                                label: 'Stress Level (1-10)',
-                                data: [6, 7, 5, 4, 3, 5, 2],
-                                borderColor: '#EF4444', // Red-500
-                                backgroundColor: 'rgba(239, 68, 68, 0.1)',
-                                yAxisID: 'y1',
-                                tension: 0.3,
-                                pointRadius: 5,
-                            },
-                            {
-                                type: 'bar',
-                                label: 'Sleep (Hours)',
-                                data: [6.5, 6, 7.5, 8, 8.5, 7, 9],
-                                backgroundColor: '#3B82F6', // Blue-500
-                                yAxisID: 'y',
-                                borderRadius: 4
-                            }
-                        ]
-                    },
-                    options: {
-                        responsive: true,
-                        scales: {
-                            y: {
-                                type: 'linear',
-                                display: true,
-                                position: 'left',
-                                beginAtZero: true,
-                                title: { display: true, text: 'Sleep (Hours)' },
-                                max: 10
-                            },
-                            y1: {
-                                type: 'linear',
-                                display: true,
-                                position: 'right',
-                                beginAtZero: true,
-                                title: { display: true, text: 'Stress Level (1-10)' },
-                                max: 10,
-                                grid: {
-                                    drawOnChartArea: false, // only draw grid for primary axis
-                                },
-                            }
-                        }
-                    }
-                });
-            }
-
-
-            // --- 4. Badges ---
-            const badges = [
-                { name: 'Mindful Start', desc: 'Completed your first meditation session.', icon: '🧘', unlocked: true },
-                { name: 'Journalist', desc: 'Wrote in your journal for 3 days straight.', icon: '✍️', unlocked: true },
-                { name: 'Week Streak', desc: 'Completed check-ins for 7 days in a row.', icon: '🗓️', unlocked: true },
-                { name: 'Self-Reflector', desc: 'Completed 5 PHQ-9 tests.', icon: '🧠', unlocked: true },
-                { name: 'Mood Master', desc: 'Tracked your mood for a full month.', icon: '😄', unlocked: false },
-                { name: 'Community Pillar', desc: 'Made your first post in the community.', icon: '💬', unlocked: true },
-                { name: 'Zen Seeker', desc: 'Completed 10 meditation sessions.', icon: '🕉️', unlocked: false },
-                { name: 'Consistency King', desc: 'Achieved a 30-day streak!', icon: '👑', unlocked: false },
-            ];
-
-            const badgesContainer = document.getElementById('badges-container');
-            if(badgesContainer){
-                badges.forEach(badge => {
-                    const badgeHTML = `
-                        <div class="badge-container relative flex flex-col items-center">
-                            <div class="text-5xl p-4 rounded-full ${badge.unlocked ? 'bg-green-100' : 'bg-gray-200'} ${badge.unlocked ? '' : 'grayscale'}">
-                                ${badge.icon}
-                            </div>
-                            <p class="text-sm font-semibold mt-2 ${badge.unlocked ? 'text-gray-700' : 'text-gray-400'}">${badge.name}</p>
-                            <div class="badge-tooltip absolute bottom-full mb-2 w-48 bg-gray-800 text-white text-xs rounded py-2 px-3 text-center z-10">
-                                ${badge.desc}
-                                <svg class="absolute text-gray-800 h-2 w-full left-0 top-full" x="0px" y="0px" viewBox="0 0 255 255" xml:space="preserve"><polygon class="fill-current" points="0,0 127.5,127.5 255,0"/></svg>
-                            </div>
-                        </div>
-                    `;
-                    badgesContainer.innerHTML += badgeHTML;
-                });
-            }
-        });
-    </script>
   </div>
 </section>
 
