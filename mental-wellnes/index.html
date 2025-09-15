@@ -16,7 +16,15 @@
       href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&family=Poppins:wght@300;400;700&display=swap"
       rel="stylesheet" />
     <link rel="stylesheet" href="css/style.css" />
-    <!-- Add this line to the <head> of your main HTML file -->
+      <link rel="stylesheet" href="css/ai_chat.css" />
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    crossorigin="anonymous"
+    referrerpolicy="no-referrer"
+  />
+  <script src="https://cdn.tailwindcss.com"></script>
+    <!-- chart -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   </head>
   <body>
@@ -105,13 +113,14 @@
       
       <div id="footer"></div>
     </div>
-
+    <script src="https://cdn.tailwindcss.com"></script>
     <script src="js/main.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js" defer></script>
     <script src="js/mood.js" defer></script>
     <script src="js/breathing.js" defer></script>
     <script src="js/community.js"></script>
     <script src="js/journal.js"></script>
+    <script type="module" src="js/ai_chat.js"></script>
 
     <script>
       document.addEventListener('DOMContentLoaded', () => {
@@ -136,5 +145,11 @@
         });
       });
     </script>
+    <!-- Botpress Webchat injection script -->
+<script src="https://cdn.botpress.cloud/webchat/v3.3/inject.js"></script>
+
+<!-- Your bot's configuration script (downloaded from Botpress Cloud) -->
+<script src="https://files.bpcontent.cloud/2025/09/15/11/20250915115007-9BLV8PPB.js" defer></script>
+
     </body>
 </html>
