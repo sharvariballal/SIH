@@ -29,8 +29,9 @@
   </head>
   <body>
 
-    <div id="onboarding-overlay" class="fixed inset-0 bg-gray-100 flex items-center justify-center z-50 p-4">
-      <div class="bg-white p-8 sm:p-12 rounded-2xl shadow-xl text-center w-full max-w-4xl mx-auto">
+    <div id="onboarding-overlay" 
+     class="fixed inset-0 flex items-center justify-center z-50 p-4 onboarding-bg">
+  <div class="bg-white p-8 sm:p-12 rounded-2xl shadow-xl text-center w-full max-w-4xl mx-auto">
         <h1 class="text-3xl md:text-4xl font-bold text-gray-800">
           Welcome to the Mental Wellness Hub
         </h1>
@@ -108,9 +109,27 @@
         <div class="meditation">
           <h2>Meditation</h2>
           <p>Short guided sessions to clear your mind.</p>
+          <div class="media-container">
+          <img id="medimg" src="./images/yoga.webp" alt="coming soon" class="yoga-image" >
+          <audio src="./audio/free-soul-om-chants-with-soothing-tabla-beats-looped-404176.mp3" controls class="audio-player"></audio>
+          </div>
         </div>
       </div>
-      
+      <div class="quote-container">
+    <div class="quote-text">
+        <span>"Just in case you forgot, you are not a burden. You are not a failure. You are not a mistake. You are not alone."</span>
+        <span>"Healing is not linear. It’s okay to have a bad day."</span>
+        <span>"Promise me you'll always remember: You're braver than you believe, stronger than you seem, and smarter than you think."</span>
+        <span>"Even the darkest night will end and the sun will rise."</span>
+    </div>
+    <div class="quote-author">
+        <span>— Unknown</span>
+        <span>— Unknown</span>
+        <span>— A.A. Milne</span>
+        <span>— Victor Hugo</span>
+    </div>
+</div>
+
       <div id="footer"></div>
     </div>
     <script src="https://cdn.tailwindcss.com"></script>
@@ -121,6 +140,8 @@
     <script src="js/community.js"></script>
     <script src="js/journal.js"></script>
     <script type="module" src="js/ai_chat.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="js/meditation.js"></script>
 
     <script>
       document.addEventListener('DOMContentLoaded', () => {
